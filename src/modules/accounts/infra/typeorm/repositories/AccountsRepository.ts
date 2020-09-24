@@ -10,30 +10,15 @@ class AccountsRepository implements IAccountsRepository {
     this.ormRepository = getRepository(Account);
   }
 
-  public async create({
-    name,
-    owner,
-    type,
-  }: ICreateAccountDTO): Promise<Account> {
+  public async create({ name, type }: ICreateAccountDTO): Promise<Account> {
     const account = this.ormRepository.create({
       name,
-      type,
-      owner,
+      account_type: type,
     });
 
     await this.ormRepository.save(account);
 
     return account;
-  }
-
-  public async findAllByOwnerId(owner_id: string): Promise<Account[]> {
-    const accounts = await this.ormRepository.find({
-      where: {
-        owner: owner_id,
-      },
-    });
-
-    return accounts;
   }
 
   public async update(account: Account): Promise<Account> {

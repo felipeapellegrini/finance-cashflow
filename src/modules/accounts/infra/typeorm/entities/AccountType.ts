@@ -4,23 +4,15 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Column,
-  ManyToOne,
-  JoinColumn,
 } from 'typeorm';
 
-import AccountType from './AccountType';
-
-@Entity('accounts')
-class Account {
+@Entity('account_type')
+class AccountType {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
-
-  @ManyToOne(() => AccountType, { eager: true })
-  @JoinColumn({ name: 'type' })
-  account_type: AccountType;
 
   @CreateDateColumn()
   created_at: Date;
@@ -29,4 +21,4 @@ class Account {
   updated_at: Date;
 }
 
-export default Account;
+export default AccountType;
