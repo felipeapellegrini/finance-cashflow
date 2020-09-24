@@ -17,9 +17,6 @@ class Account {
   @Column()
   type: string;
 
-  @Column()
-  owner: string;
-
   @CreateDateColumn()
   created_at: Date;
 
