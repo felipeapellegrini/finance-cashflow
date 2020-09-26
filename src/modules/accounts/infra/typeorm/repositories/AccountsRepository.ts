@@ -10,11 +10,8 @@ class AccountsRepository implements IAccountsRepository {
     this.ormRepository = getRepository(Account);
   }
 
-  public async create({ name, type }: ICreateAccountDTO): Promise<Account> {
-    const account = this.ormRepository.create({
-      name,
-      account_type: type,
-    });
+  public async create(accountData: ICreateAccountDTO): Promise<Account> {
+    const account = this.ormRepository.create(accountData);
 
     await this.ormRepository.save(account);
 
