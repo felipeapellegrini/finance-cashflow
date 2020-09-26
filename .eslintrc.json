@@ -24,6 +24,8 @@
   ],
   "rules": {
     "prettier/prettier": "error",
+    "no-useless-constructor":"off",
+    "@typescript-eslint/no-explicit-any": "off",
     "class-methods-use-this": "off",
     "camelcase": "off",
     "import/extensions": [
