@@ -20,4 +20,6 @@ accountTypesRouter.post(
 
 accountTypesRouter.delete('/:id', accountTypesController.delete);
 
+accountTypesRouter.put('/:id', accountTypesController.update);
+
 export default accountTypesRouter;

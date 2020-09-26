@@ -13,7 +13,7 @@ class DeleteAccountTypeService {
     const getAccountType = await this.accountTypesRepository.findById(id);
 
     if (!getAccountType) {
-      throw new AppError('Account Type does not exists');
+      throw new AppError('Account Type does not exist');
     }
 
     await this.accountTypesRepository.delete(getAccountType);

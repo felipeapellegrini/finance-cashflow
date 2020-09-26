@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateAccountTypeService from '@modules/accounts/services/CreateAccountTypeService';
 import DeleteAccountTypeService from '@modules/accounts/services/DeleteAccountTypeService';
+import UpdateAccountTypeService from '@modules/accounts/services/UpdateAccountTypeService';
 
 class AccountTypesController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -27,6 +28,24 @@ class AccountTypesController {
       await deleteAccountType.execute(id);
 
       return response.status(204).send();
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    try {
+      const { id } = request.params;
+      const { name } = request.body;
+
+      const updateAccountType = container.resolve(UpdateAccountTypeService);
+
+      const accountType = await updateAccountType.execute({
+        id,
+        new_name: name,
+      });
+
+      return response.json(accountType);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
