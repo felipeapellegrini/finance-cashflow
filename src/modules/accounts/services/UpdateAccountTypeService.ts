@@ -4,6 +4,7 @@ import AccountType from '../infra/typeorm/entities/AccountType';
 import IAccountTypesRepository from '../repositories/IAccountTypesRepository';
 
 interface IRequest {
+  user_id: string;
   id: string;
   new_name: string;
 }
@@ -15,14 +16,21 @@ class UpdateAccountTypeService {
     private accountTypesRepository: IAccountTypesRepository,
   ) {}
 
-  public async execute({ id, new_name }: IRequest): Promise<AccountType> {
-    const accountType = await this.accountTypesRepository.findById(id);
+  public async execute({
+    user_id,
+    id,
+    new_name,
+  }: IRequest): Promise<AccountType> {
+    const accountType = await this.accountTypesRepository.findById(user_id, id);
 
     if (!accountType) {
       throw new AppError('Account Type does not exist');
     }
 
-    const checkName = await this.accountTypesRepository.findByName(new_name);
+    const checkName = await this.accountTypesRepository.findByName({
+      user_id,
+      name: new_name,
+    });
 
     if (checkName && checkName.id !== id) {
       throw new AppError('New Account Type name already exists');

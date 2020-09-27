@@ -1,10 +1,11 @@
+import ICreateAccountTypeDTO from '../dtos/ICreateAccountTypeDTO';
 import AccountType from '../infra/typeorm/entities/AccountType';
 
 export default interface IAccountTypesRepository {
-  create(name: string): Promise<AccountType>;
+  create(data: ICreateAccountTypeDTO): Promise<AccountType>;
   update(account_type: AccountType): Promise<AccountType>;
-  findByName(name: string): Promise<AccountType | undefined>;
+  findByName(data: ICreateAccountTypeDTO): Promise<AccountType | undefined>;
   delete(account_type: AccountType): Promise<void>;
-  findById(id: string): Promise<AccountType | undefined>;
-  findAll(): Promise<AccountType[] | undefined>;
+  findById(user_id: string, id: string): Promise<AccountType | undefined>;
+  findAll(user_id: string): Promise<AccountType[] | undefined>;
 }

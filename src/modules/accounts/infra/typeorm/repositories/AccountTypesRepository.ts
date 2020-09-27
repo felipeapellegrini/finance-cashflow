@@ -1,3 +1,4 @@
+import ICreateAccountTypeDTO from '@modules/accounts/dtos/ICreateAccountTypeDTO';
 import IAccountTypesRepository from '@modules/accounts/repositories/IAccountTypesRepository';
 import { getRepository, Repository } from 'typeorm';
 import AccountType from '../entities/AccountType';
@@ -9,8 +10,11 @@ class AccountTypesRepository implements IAccountTypesRepository {
     this.ormRepository = getRepository(AccountType);
   }
 
-  public async create(name: string): Promise<AccountType> {
-    const accountType = this.ormRepository.create({ name });
+  public async create({
+    user_id,
+    name,
+  }: ICreateAccountTypeDTO): Promise<AccountType> {
+    const accountType = this.ormRepository.create({ name, user_id });
 
     await this.ormRepository.save(accountType);
 
@@ -21,9 +25,13 @@ class AccountTypesRepository implements IAccountTypesRepository {
     return this.ormRepository.save(accountType);
   }
 
-  public async findByName(name: string): Promise<AccountType | undefined> {
+  public async findByName({
+    user_id,
+    name,
+  }: ICreateAccountTypeDTO): Promise<AccountType | undefined> {
     const accountType = this.ormRepository.findOne({
       where: {
+        user_id,
         name,
       },
     });
@@ -31,9 +39,13 @@ class AccountTypesRepository implements IAccountTypesRepository {
     return accountType;
   }
 
-  public async findById(id: string): Promise<AccountType | undefined> {
+  public async findById(
+    user_id: string,
+    id: string,
+  ): Promise<AccountType | undefined> {
     const accountType = await this.ormRepository.findOne({
       where: {
+        user_id,
         id,
       },
     });
@@ -45,8 +57,12 @@ class AccountTypesRepository implements IAccountTypesRepository {
     await this.ormRepository.remove(account_type);
   }
 
-  public async findAll(): Promise<AccountType[]> {
-    const accountTypes = await this.ormRepository.find();
+  public async findAll(user_id: string): Promise<AccountType[]> {
+    const accountTypes = await this.ormRepository.find({
+      where: {
+        user_id,
+      },
+    });
 
     return accountTypes;
   }

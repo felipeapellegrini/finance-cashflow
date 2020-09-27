@@ -10,8 +10,8 @@ class CreateAccountTypeService {
     private accountTypesRepository: IAccountTypesRepository,
   ) {}
 
-  public async execute(): Promise<AccountType[] | undefined> {
-    const accountTypes = await this.accountTypesRepository.findAll();
+  public async execute(user_id: string): Promise<AccountType[] | undefined> {
+    const accountTypes = await this.accountTypesRepository.findAll(user_id);
 
     if (accountTypes?.length === 0) {
       throw new AppError('There is not account types registered.');

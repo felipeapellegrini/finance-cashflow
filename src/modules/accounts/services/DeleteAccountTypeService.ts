@@ -9,8 +9,11 @@ class DeleteAccountTypeService {
     private accountTypesRepository: IAccountTypesRepository,
   ) {}
 
-  public async execute(id: string): Promise<void> {
-    const getAccountType = await this.accountTypesRepository.findById(id);
+  public async execute(user_id: string, id: string): Promise<void> {
+    const getAccountType = await this.accountTypesRepository.findById(
+      user_id,
+      id,
+    );
 
     if (!getAccountType) {
       throw new AppError('Account Type does not exist');

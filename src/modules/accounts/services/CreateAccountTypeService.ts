@@ -3,6 +3,11 @@ import { injectable, inject } from 'tsyringe';
 import IAccountTypesRepository from '../repositories/IAccountTypesRepository';
 import AccountType from '../infra/typeorm/entities/AccountType';
 
+interface IRequest {
+  name: string;
+  user_id: string;
+}
+
 @injectable()
 class CreateAccountTypeService {
   constructor(
@@ -10,16 +15,22 @@ class CreateAccountTypeService {
     private accountTypesRepository: IAccountTypesRepository,
   ) {}
 
-  public async execute(name: string): Promise<AccountType> {
+  public async execute({ name, user_id }: IRequest): Promise<AccountType> {
     const checkAccountTypeExists = await this.accountTypesRepository.findByName(
-      name,
+      {
+        user_id,
+        name,
+      },
     );
 
     if (checkAccountTypeExists) {
       throw new AppError('Account Type already exists');
     }
 
-    const accountType = await this.accountTypesRepository.create(name);
+    const accountType = await this.accountTypesRepository.create({
+      user_id,
+      name,
+    });
 
     return accountType;
   }
