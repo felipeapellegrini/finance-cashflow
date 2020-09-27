@@ -6,4 +6,5 @@ export default interface IAccountTypesRepository {
   findByName(name: string): Promise<AccountType | undefined>;
   delete(account_type: AccountType): Promise<void>;
   findById(id: string): Promise<AccountType | undefined>;
+  findAll(): Promise<AccountType[] | undefined>;
 }

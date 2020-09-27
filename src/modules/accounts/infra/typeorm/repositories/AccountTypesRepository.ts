@@ -44,6 +44,12 @@ class AccountTypesRepository implements IAccountTypesRepository {
   public async delete(account_type: AccountType): Promise<void> {
     await this.ormRepository.remove(account_type);
   }
+
+  public async findAll(): Promise<AccountType[]> {
+    const accountTypes = await this.ormRepository.find();
+
+    return accountTypes;
+  }
 }
 
 export default AccountTypesRepository;

@@ -3,13 +3,13 @@ import { celebrate, Segments, Joi } from 'celebrate';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import AccountTypesController from '../controllers/AccountTypesController';
 
-const accountTypesRouter = Router();
+const accountsRouter = Router();
 const accountTypesController = new AccountTypesController();
 
-accountTypesRouter.use(ensureAuthenticated);
+accountsRouter.use(ensureAuthenticated);
 
-accountTypesRouter.post(
-  '/',
+accountsRouter.post(
+  '/types',
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -18,8 +18,10 @@ accountTypesRouter.post(
   accountTypesController.create,
 );
 
-accountTypesRouter.delete('/:id', accountTypesController.delete);
+accountsRouter.delete('/types/:id', accountTypesController.delete);
 
-accountTypesRouter.put('/:id', accountTypesController.update);
+accountsRouter.put('/types/:id', accountTypesController.update);
 
-export default accountTypesRouter;
+accountsRouter.get('/types', accountTypesController.index);
+
+export default accountsRouter;
