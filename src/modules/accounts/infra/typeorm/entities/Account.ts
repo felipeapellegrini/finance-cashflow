@@ -1,3 +1,4 @@
+import User from '@modules/users/infra/typeorm/entities/Users';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -14,6 +15,13 @@ import AccountType from './AccountType';
 class Account {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column()
+  user_id: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column()
   name: string;
