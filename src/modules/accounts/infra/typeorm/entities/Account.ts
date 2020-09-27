@@ -26,6 +26,9 @@ class Account {
   @Column()
   name: string;
 
+  @Column()
+  type: string;
+
   @ManyToOne(() => AccountType, { eager: true })
   @JoinColumn({ name: 'type' })
   account_type: AccountType;

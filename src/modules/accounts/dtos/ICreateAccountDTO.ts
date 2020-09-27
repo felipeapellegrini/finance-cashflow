@@ -1,6 +1,5 @@
-import AccountType from '@modules/accounts/infra/typeorm/entities/AccountType';
-
 export default interface ICreateAccountDTO {
+  user_id: string;
   name: string;
-  type: AccountType;
+  type: string;
 }

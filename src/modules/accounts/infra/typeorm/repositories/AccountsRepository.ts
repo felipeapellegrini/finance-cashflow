@@ -10,8 +10,16 @@ class AccountsRepository implements IAccountsRepository {
     this.ormRepository = getRepository(Account);
   }
 
-  public async create(accountData: ICreateAccountDTO): Promise<Account> {
-    const account = this.ormRepository.create(accountData);
+  public async create({
+    name,
+    user_id,
+    type,
+  }: ICreateAccountDTO): Promise<Account> {
+    const account = this.ormRepository.create({
+      name,
+      user_id,
+      type,
+    });
 
     await this.ormRepository.save(account);
 
@@ -20,6 +28,44 @@ class AccountsRepository implements IAccountsRepository {
 
   public async update(account: Account): Promise<Account> {
     return this.ormRepository.save(account);
+  }
+
+  public async findByName(
+    user_id: string,
+    name: string,
+  ): Promise<Account | undefined> {
+    const account = await this.ormRepository.findOne({
+      where: {
+        user_id,
+        name,
+      },
+    });
+
+    return account;
+  }
+
+  public async findById(
+    user_id: string,
+    id: string,
+  ): Promise<Account | undefined> {
+    const account = await this.ormRepository.findOne({
+      where: {
+        user_id,
+        id,
+      },
+    });
+
+    return account;
+  }
+
+  public async findAll(user_id: string): Promise<Account[]> {
+    const accounts = await this.ormRepository.find({
+      where: {
+        user_id,
+      },
+    });
+
+    return accounts;
   }
 }
 
