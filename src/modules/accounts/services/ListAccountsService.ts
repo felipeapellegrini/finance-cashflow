@@ -4,7 +4,7 @@ import IAccountsRepository from '../repositories/IAccountsRepository';
 import Account from '../infra/typeorm/entities/Account';
 
 @injectable()
-class CreateAccountService {
+class ListAccountsService {
   constructor(
     @inject('AccountsRepository')
     private accountsRepository: IAccountsRepository,
@@ -21,4 +21,4 @@ class CreateAccountService {
   }
 }
 
-export default CreateAccountService;
+export default ListAccountsService;

@@ -11,6 +11,9 @@ import AccountTypesRepository from '@modules/accounts/infra/typeorm/repositories
 import IAccountsRepository from '@modules/accounts/repositories/IAccountsRepository';
 import AccountsRepository from '@modules/accounts/infra/typeorm/repositories/AccountsRepository';
 
+import ICostCentersRepository from '@modules/transactions/repositories/ICostCentersRepository';
+import CostCentersRepository from '@modules/transactions/infra/typeorm/repositories/CostCentersRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -24,4 +27,9 @@ container.registerSingleton<IAccountTypesRepository>(
 container.registerSingleton<IAccountsRepository>(
   'AccountsRepository',
   AccountsRepository,
+);
+
+container.registerSingleton<ICostCentersRepository>(
+  'CostCentersRepository',
+  CostCentersRepository,
 );
