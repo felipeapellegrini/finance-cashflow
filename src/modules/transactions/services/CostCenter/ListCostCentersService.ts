@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
-import ICostCentersRepository from '../repositories/ICostCentersRepository';
-import CostCenter from '../infra/typeorm/entities/CostCenter';
+import ICostCentersRepository from '../../repositories/ICostCentersRepository';
+import CostCenter from '../../infra/typeorm/entities/CostCenter';
 
 @injectable()
 class ListCostCentersService {

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateCostCenterService from '@modules/transactions/services/CreateCostCenterService';
-import DeleteCostCenterService from '@modules/transactions/services/DeleteCostCenterService';
-import ListCostCentersService from '@modules/transactions/services/ListCostCentersService';
-import UpdateCostCenterService from '@modules/transactions/services/UpdateCostCenterService';
+import CreateCostCenterService from '@modules/transactions/services/CostCenter/CreateCostCenterService';
+import DeleteCostCenterService from '@modules/transactions/services/CostCenter/DeleteCostCenterService';
+import ListCostCentersService from '@modules/transactions/services/CostCenter/ListCostCentersService';
+import UpdateCostCenterService from '@modules/transactions/services/CostCenter/UpdateCostCenterService';
 
 export default class CostCentersController {
   public async create(request: Request, response: Response): Promise<Response> {
