@@ -58,7 +58,7 @@ class CategoriesRepository implements ICategoriesRepository {
   }
 
   public async findAll(user_id: string): Promise<Category[]> {
-    const category = this.ormRepository.find({
+    const category = await this.ormRepository.find({
       where: {
         user_id,
       },

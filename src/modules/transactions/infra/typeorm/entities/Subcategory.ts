@@ -8,10 +8,10 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import AccountType from './AccountType';
+import Category from './Category';
 
-@Entity('accounts')
-class Account {
+@Entity('subcategories')
+class Subcategory {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -19,14 +19,14 @@ class Account {
   user_id: string;
 
   @Column()
-  name: string;
+  category_id: string;
 
   @Column()
-  type: string;
+  name: string;
 
-  @ManyToOne(() => AccountType, { eager: true })
-  @JoinColumn({ name: 'type' })
-  account_type: AccountType;
+  @ManyToOne(() => Category, { eager: true })
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
 
   @CreateDateColumn()
   created_at: Date;
@@ -35,4 +35,4 @@ class Account {
   updated_at: Date;
 }
 
-export default Account;
+export default Subcategory;

@@ -4,7 +4,7 @@ import ListAccountsService from '@modules/accounts/services/ListAccountsService'
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-class AccountTypesController {
+class AccountsController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
       const user_id = request.user.id;
@@ -60,4 +60,4 @@ class AccountTypesController {
   }
 }
 
-export default AccountTypesController;
+export default AccountsController;

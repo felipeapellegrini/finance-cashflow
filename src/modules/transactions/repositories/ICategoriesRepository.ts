@@ -8,5 +8,5 @@ export default interface ICategoriesRepository {
   findByName(data: HandleCategoriesDTO): Promise<Category | undefined>;
   findById({ user_id, id }: IFindByIdDTO): Promise<Category | undefined>;
   findAll(user_id: string): Promise<Category[] | undefined>;
-  delete(cost_center: Category): Promise<void>;
+  delete(category: Category): Promise<void>;
 }
