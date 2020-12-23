@@ -20,6 +20,9 @@ import CategoriesRepository from '@modules/transactions/infra/typeorm/repositori
 import ISubcategoriesRepository from '@modules/transactions/repositories/ISubcategoriesRepository';
 import SubcategoriesRepository from '@modules/transactions/infra/typeorm/repositories/SubcategoriesRepository';
 
+import ITransactionsRepository from '@modules/transactions/repositories/ITransactionsRepository';
+import TransactionsRepository from '@modules/transactions/infra/typeorm/repositories/TransactionsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -48,4 +51,9 @@ container.registerSingleton<ICategoriesRepository>(
 container.registerSingleton<ISubcategoriesRepository>(
   'SubcategoriesRepository',
   SubcategoriesRepository,
+);
+
+container.registerSingleton<ITransactionsRepository>(
+  'TransactionsRepository',
+  TransactionsRepository,
 );
