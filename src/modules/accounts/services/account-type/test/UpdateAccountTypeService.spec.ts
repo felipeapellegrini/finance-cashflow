@@ -46,4 +46,14 @@ describe('UpdateAccountType', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to update an non existing account type', async () => {
+    await expect(
+      updateAccountType.execute({
+        user_id: 'user',
+        id: 'non-existing id',
+        new_name: 'new account type',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
