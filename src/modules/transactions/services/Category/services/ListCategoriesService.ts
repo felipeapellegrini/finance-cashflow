@@ -13,7 +13,7 @@ class ListCategoriesService {
   public async execute(user_id: string): Promise<Category[] | undefined> {
     const categories = await this.categoriesRepository.findAll(user_id);
 
-    if (categories?.length === 0) {
+    if (!categories || categories.length === 0) {
       throw new AppError(
         'There is no categories registered, please register one.',
       );
