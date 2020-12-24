@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
-import IAccountTypesRepository from '../repositories/IAccountTypesRepository';
-import AccountType from '../infra/typeorm/entities/AccountType';
+import IAccountTypesRepository from '../../../repositories/IAccountTypesRepository';
+import AccountType from '../../../infra/typeorm/entities/AccountType';
 
 @injectable()
 class CreateAccountTypeService {

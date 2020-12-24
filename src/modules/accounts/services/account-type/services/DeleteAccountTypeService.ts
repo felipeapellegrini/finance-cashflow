@@ -1,6 +1,6 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
-import IAccountTypesRepository from '../repositories/IAccountTypesRepository';
+import IAccountTypesRepository from '../../../repositories/IAccountTypesRepository';
 
 @injectable()
 class DeleteAccountTypeService {

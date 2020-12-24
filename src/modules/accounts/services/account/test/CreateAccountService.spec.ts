@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
-import FakeAccountsRepository from '../../repositories/fakes/FakeAccountsRepository';
-import FakeAccountTypesRepository from '../../repositories/fakes/FakeAccountTypesRepository';
-import CreateAccountService from '../CreateAccountService';
+import FakeAccountsRepository from '../../../repositories/fakes/FakeAccountsRepository';
+import FakeAccountTypesRepository from '../../../repositories/fakes/FakeAccountTypesRepository';
+import CreateAccountService from '../services/CreateAccountService';
 
 let fakeAccountsRepository: FakeAccountsRepository;
 let fakeAccountTypesRepository: FakeAccountTypesRepository;

@@ -1,8 +1,8 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
-import IAccountsRepository from '../repositories/IAccountsRepository';
-import Account from '../infra/typeorm/entities/Account';
-import IAccountTypesRepository from '../repositories/IAccountTypesRepository';
+import IAccountsRepository from '../../../repositories/IAccountsRepository';
+import Account from '../../../infra/typeorm/entities/Account';
+import IAccountTypesRepository from '../../../repositories/IAccountTypesRepository';
 
 interface IRequest {
   name: string;
