@@ -53,7 +53,9 @@ class AccountTypesRepository implements IAccountTypesRepository {
   }
 
   public async delete(account_type: AccountType): Promise<void> {
-    this.accountTypes.filter(accountType => accountType.id !== account_type.id);
+    this.accountTypes = this.accountTypes.filter(
+      accountType => accountType.id !== account_type.id,
+    );
   }
 
   public async findAll(user_id: string): Promise<AccountType[]> {
