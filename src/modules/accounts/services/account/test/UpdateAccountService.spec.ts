@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeAccountsRepository from '../../../repositories/fakes/FakeAccountsRepository';
 import FakeAccountTypesRepository from '../../../repositories/fakes/FakeAccountTypesRepository';
 import UpdateAccountService from '../services/UpdateAccountService';
@@ -37,5 +37,21 @@ describe('UpdateAccount', () => {
     });
 
     expect(updatedAccount.name).toBe('account-B');
+  });
+
+  test('should not be able to update an account that does not exist', async () => {
+    await fakeAccountTypesRepository.create({
+      user_id: 'user',
+      name: 'account-type',
+    });
+
+    await expect(
+      updateAccount.execute({
+        name: 'invalid-account',
+        id: 'invalid-id',
+        user_id: 'user',
+        type_name: 'account-type',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
