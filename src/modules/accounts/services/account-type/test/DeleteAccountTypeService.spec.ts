@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeAccountTypesRepository from '../../../repositories/fakes/FakeAccountTypesRepository';
 import DeleteAccountTypeService from '../services/DeleteAccountTypeService';
 
@@ -31,5 +31,11 @@ describe('DeleteAccountType', () => {
         name: 'account-type',
       }),
     ).resolves.toBeUndefined();
+  });
+
+  it('should not be able to delete an non existing account type', async () => {
+    await expect(
+      deleteAccountType.execute('user', 'invalid-id'),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
