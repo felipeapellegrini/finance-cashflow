@@ -54,4 +54,54 @@ describe('UpdateAccount', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  test('should throw when the new account name already exists', async () => {
+    await fakeAccountTypesRepository.create({
+      user_id: 'user',
+      name: 'account-type',
+    });
+
+    await fakeAccountsRepository.create({
+      name: 'account-A',
+      user_id: 'user',
+      type: 'account-type',
+    });
+
+    const accountB = await fakeAccountsRepository.create({
+      name: 'account-B',
+      user_id: 'user',
+      type: 'account-type',
+    });
+
+    await expect(
+      updateAccount.execute({
+        name: 'account-A',
+        id: accountB.id,
+        user_id: 'user',
+        type_name: 'account-type',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  test('should throw when the new account type is invalid', async () => {
+    await fakeAccountTypesRepository.create({
+      user_id: 'user',
+      name: 'account-type',
+    });
+
+    const account = await fakeAccountsRepository.create({
+      name: 'account',
+      user_id: 'user',
+      type: 'account-type',
+    });
+
+    await expect(
+      updateAccount.execute({
+        name: account.name,
+        id: account.id,
+        user_id: account.user_id,
+        type_name: 'invalid-account-type',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
