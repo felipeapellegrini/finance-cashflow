@@ -1,7 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import Subcategory from '@modules/transactions/infra/typeorm/entities/Subcategory';
 import AppError from '@shared/errors/AppError';
-import ISubcategoriesRepository from '../../repositories/ISubcategoriesRepository';
+import ISubcategoriesRepository from '../../../repositories/ISubcategoriesRepository';
 
 @injectable()
 export default class ListSubcategoriesService {

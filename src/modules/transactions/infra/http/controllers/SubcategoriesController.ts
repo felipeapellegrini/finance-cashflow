@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import ListSubcategoriesService from '@modules/transactions/services/Subcategory/ListSubcategoriesService';
-import CreateSubcategoryService from '@modules/transactions/services/Subcategory/CreateSubcategoryService';
-import DeleteSubcategoryService from '@modules/transactions/services/Subcategory/DeleteSubcategoryService';
-import UpdateSubcategoryService from '@modules/transactions/services/Subcategory/UpdateSubcategoryService';
+import ListSubcategoriesService from '@modules/transactions/services/Subcategory/services/ListSubcategoriesService';
+import CreateSubcategoryService from '@modules/transactions/services/Subcategory/services/CreateSubcategoryService';
+import DeleteSubcategoryService from '@modules/transactions/services/Subcategory/services/DeleteSubcategoryService';
+import UpdateSubcategoryService from '@modules/transactions/services/Subcategory/services/UpdateSubcategoryService';
 
 export default class SubcategoriesController {
   public async index(request: Request, response: Response): Promise<Response> {

@@ -2,7 +2,7 @@ import Subcategory from '@modules/transactions/infra/typeorm/entities/Subcategor
 import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import ICategoriesRepository from '@modules/transactions/repositories/ICategoriesRepository';
-import ISubcategoriesRepository from '../../repositories/ISubcategoriesRepository';
+import ISubcategoriesRepository from '../../../repositories/ISubcategoriesRepository';
 
 interface IRequest {
   user_id: string;

@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
-import ICategoriesRepository from '../../repositories/ICategoriesRepository';
-import Category from '../../infra/typeorm/entities/Category';
+import ICategoriesRepository from '../../../repositories/ICategoriesRepository';
+import Category from '../../../infra/typeorm/entities/Category';
 
 @injectable()
 class ListCategoriesService {

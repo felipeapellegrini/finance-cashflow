@@ -1,8 +1,8 @@
 import ICategoriesRepository from '@modules/transactions/repositories/ICategoriesRepository';
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
-import Subcategory from '../../infra/typeorm/entities/Subcategory';
-import ISubcategoriesRepository from '../../repositories/ISubcategoriesRepository';
+import Subcategory from '../../../infra/typeorm/entities/Subcategory';
+import ISubcategoriesRepository from '../../../repositories/ISubcategoriesRepository';
 
 interface IRequest {
   user_id: string;

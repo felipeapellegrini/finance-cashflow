@@ -1,6 +1,6 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
-import ICostCentersRepository from '../../repositories/ICostCentersRepository';
+import ICostCentersRepository from '../../../repositories/ICostCentersRepository';
 
 interface IRequest {
   user_id: string;

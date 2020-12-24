@@ -1,6 +1,6 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
-import ICategoriesRepository from '../../repositories/ICategoriesRepository';
+import ICategoriesRepository from '../../../repositories/ICategoriesRepository';
 
 interface IRequest {
   user_id: string;

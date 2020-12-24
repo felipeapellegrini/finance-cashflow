@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import ListCategoriesService from '@modules/transactions/services/Category/ListCategoriesService';
-import CreateCategoryService from '@modules/transactions/services/Category/CreateCategoryService';
-import DeleteCategoryService from '@modules/transactions/services/Category/DeleteCategoryService';
-import UpdateCategoryService from '@modules/transactions/services/Category/UpdateCategoryService';
+import ListCategoriesService from '@modules/transactions/services/Category/services/ListCategoriesService';
+import CreateCategoryService from '@modules/transactions/services/Category/services/CreateCategoryService';
+import DeleteCategoryService from '@modules/transactions/services/Category/services/DeleteCategoryService';
+import UpdateCategoryService from '@modules/transactions/services/Category/services/UpdateCategoryService';
 
 export default class CategoriesController {
   public async index(request: Request, response: Response): Promise<Response> {
