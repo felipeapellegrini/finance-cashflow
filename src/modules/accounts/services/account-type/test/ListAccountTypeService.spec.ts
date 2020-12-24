@@ -11,15 +11,14 @@ describe('ListAccountType', () => {
     listAccountType = new ListAccountTypesService(fakeAccountTypesRepository);
   });
   it('should be able to list all account types', async () => {
-    await fakeAccountTypesRepository.create({
+    const accountType = await fakeAccountTypesRepository.create({
       user_id: 'user',
       name: 'account type',
     });
 
     const accountTypes = await listAccountType.execute('user');
 
-    expect(accountTypes).toHaveProperty('length');
-    expect(accountTypes?.length).toBeGreaterThan(0);
+    expect(accountTypes).toEqual([accountType]);
   });
 
   it('should not be able to list account types when they do not exist', async () => {
