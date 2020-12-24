@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeCategoriesRepository from '../../../repositories/fakes/FakeCategoriesRepository';
 import DeleteCategoryService from '../services/DeleteCategoryService';
 
@@ -27,5 +27,14 @@ describe('DeleteCategory', () => {
     });
 
     expect(categories).toBeUndefined();
+  });
+
+  it('should not be able to delete a non existing category', async () => {
+    await expect(
+      deleteCategory.execute({
+        user_id: 'user',
+        id: 'non existing category',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
