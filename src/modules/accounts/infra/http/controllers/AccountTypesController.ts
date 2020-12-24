@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateAccountTypeService from '@modules/accounts/services/CreateAccountTypeService';
-import DeleteAccountTypeService from '@modules/accounts/services/DeleteAccountTypeService';
-import UpdateAccountTypeService from '@modules/accounts/services/UpdateAccountTypeService';
-import ListAccountTypesService from '@modules/accounts/services/ListAccountTypesService';
+import DeleteAccountTypeService from '../../../services/account-type/services/DeleteAccountTypeService';
+import UpdateAccountTypeService from '../../../services/account-type/services/UpdateAccountTypeService';
+import ListAccountTypesService from '../../../services/account-type/services/ListAccountTypesService';
+import CreateAccountTypeService from '../../../services/account-type/services/CreateAccountTypeService';
 
 class AccountTypesController {
   public async create(request: Request, response: Response): Promise<Response> {
