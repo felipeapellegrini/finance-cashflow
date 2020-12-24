@@ -57,7 +57,6 @@ class CreateAccountService {
 
     account.name = name;
     account.type = accountType.id;
-    account.account_type.id = accountType.id;
 
     await this.accountsRepository.update(account);
 
