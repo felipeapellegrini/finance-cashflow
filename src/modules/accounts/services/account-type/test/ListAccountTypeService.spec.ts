@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeAccountTypesRepository from '../../../repositories/fakes/FakeAccountTypesRepository';
 import ListAccountTypesService from '../services/ListAccountTypesService';
 
@@ -20,5 +20,11 @@ describe('ListAccountType', () => {
 
     expect(accountTypes).toHaveProperty('length');
     expect(accountTypes?.length).toBeGreaterThan(0);
+  });
+
+  it('should not be able to list account types when they do not exist', async () => {
+    await expect(listAccountType.execute('user')).rejects.toBeInstanceOf(
+      AppError,
+    );
   });
 });
