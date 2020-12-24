@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeAccountTypesRepository from '../../../repositories/fakes/FakeAccountTypesRepository';
 import UpdateAccountTypeService from '../services/UpdateAccountTypeService';
 
@@ -25,5 +25,25 @@ describe('UpdateAccountType', () => {
     });
 
     expect(updatedAccountType.name).toBe('new account type');
+  });
+
+  it('should not be able to set new account type name to an existing one', async () => {
+    const accountType = await fakeAccountTypesRepository.create({
+      user_id: 'user',
+      name: 'account type',
+    });
+
+    await fakeAccountTypesRepository.create({
+      user_id: 'user',
+      name: 'existing account type',
+    });
+
+    await expect(
+      updateAccountType.execute({
+        user_id: 'user',
+        id: accountType.id,
+        new_name: 'existing account type',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
