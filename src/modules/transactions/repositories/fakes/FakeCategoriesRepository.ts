@@ -1,9 +1,9 @@
-import HandleCategoriesDTO from '@modules/transactions/dtos/HandleCategoriesDTO';
 import { v4 } from 'uuid';
 
+import HandleCategoriesDTO from '@modules/transactions/dtos/HandleCategoriesDTO';
 import IFindByIdDTO from '@modules/transactions/dtos/IFindByIdDTO';
-import ICategoriesRepository from '../../../../repositories/ICategoriesRepository';
-import Category from '../../entities/Category';
+import ICategoriesRepository from '../ICategoriesRepository';
+import Category from '../../infra/typeorm/entities/Category';
 
 class FakeCategoriesRepository implements ICategoriesRepository {
   private categories: Category[] = [];
