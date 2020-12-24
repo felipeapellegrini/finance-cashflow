@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeCategoriesRepository from '../../../repositories/fakes/FakeCategoriesRepository';
 import CreateCategoryService from '../services/CreateCategoryService';
 
@@ -17,5 +17,18 @@ describe('CreateCategory', () => {
     });
 
     expect(category).toHaveProperty('id');
+  });
+
+  it('should not be able to create two categories with the same name', async () => {
+    await createCategory.execute({
+      user_id: 'user',
+      name: 'category',
+    });
+    await expect(
+      createCategory.execute({
+        user_id: 'user',
+        name: 'category',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
