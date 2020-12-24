@@ -23,7 +23,9 @@ class FakeCategoriesRepository implements ICategoriesRepository {
 
   public async update(category: Category): Promise<Category> {
     const findIndex = this.categories.findIndex(
-      findCategory => findCategory.id === category.id,
+      findCategory =>
+        findCategory.id === category.id &&
+        findCategory.user_id === category.user_id,
     );
 
     this.categories[findIndex] = category;
@@ -63,7 +65,9 @@ class FakeCategoriesRepository implements ICategoriesRepository {
 
   public async delete(category: Category): Promise<void> {
     this.categories = this.categories.filter(
-      keepCategory => keepCategory.id !== category.id,
+      keepCategory =>
+        keepCategory.id !== category.id &&
+        keepCategory.user_id === category.user_id,
     );
   }
 }

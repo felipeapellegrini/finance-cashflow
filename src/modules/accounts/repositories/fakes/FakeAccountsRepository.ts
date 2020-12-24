@@ -23,7 +23,9 @@ class FakeAccountsRepository implements IAccountsRepository {
 
   public async update(account: Account): Promise<Account> {
     const findIndex = this.accounts.findIndex(
-      findAccount => findAccount.id === account.id,
+      findAccount =>
+        findAccount.id === account.id &&
+        findAccount.user_id === account.user_id,
     );
 
     this.accounts[findIndex] = account;

@@ -21,7 +21,9 @@ class AccountTypesRepository implements IAccountTypesRepository {
 
   public async update(accountType: AccountType): Promise<AccountType> {
     const findIndex = this.accountTypes.findIndex(
-      findAccountType => findAccountType.id === accountType.id,
+      findAccountType =>
+        findAccountType.id === accountType.id &&
+        findAccountType.user_id === accountType.user_id,
     );
 
     this.accountTypes[findIndex] = accountType;
@@ -54,7 +56,9 @@ class AccountTypesRepository implements IAccountTypesRepository {
 
   public async delete(account_type: AccountType): Promise<void> {
     this.accountTypes = this.accountTypes.filter(
-      accountType => accountType.id !== account_type.id,
+      accountType =>
+        accountType.id !== account_type.id &&
+        accountType.user_id === account_type.user_id,
     );
   }
 
