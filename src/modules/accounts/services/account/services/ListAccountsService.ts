@@ -13,7 +13,7 @@ class ListAccountsService {
   public async execute(user_id: string): Promise<Account[] | undefined> {
     const accounts = await this.accountsRepository.findAll(user_id);
 
-    if (accounts?.length === 0) {
+    if (!accounts || accounts.length === 0) {
       throw new AppError('There is not account types registered.');
     }
 
