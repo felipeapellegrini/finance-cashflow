@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeAccountTypesRepository from '../../../repositories/fakes/FakeAccountTypesRepository';
 import CreateAccountTypeService from '../services/CreateAccountTypeService';
 
@@ -21,5 +21,25 @@ describe('CreateAccountType', () => {
     expect(accountType).toHaveProperty('id');
     expect(accountType.user_id).toBe('user');
     expect(accountType.name).toBe('account-type');
+  });
+
+  it('should not be able one user to create two account types with the same name', async () => {
+    await createAccountType.execute({
+      name: 'account-type',
+      user_id: 'user',
+    });
+
+    await expect(
+      createAccountType.execute({
+        name: 'account-type',
+        user_id: 'user',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+    await expect(
+      createAccountType.execute({
+        name: 'account-type',
+        user_id: 'user2',
+      }),
+    ).resolves.toHaveProperty('id');
   });
 });
