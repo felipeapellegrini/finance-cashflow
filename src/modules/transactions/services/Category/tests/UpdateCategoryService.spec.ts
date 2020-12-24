@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeCategoriesRepository from '../../../repositories/fakes/FakeCategoriesRepository';
 import UpdateCategoryService from '../services/UpdateCategoryService';
 
@@ -34,5 +34,25 @@ describe('UpdateCategories', () => {
         category_id: 'non existing id',
       }),
     );
+  });
+
+  it('should not be able to update a category name to a existing name', async () => {
+    const category = await fakeCategoriesRepository.create({
+      name: 'category',
+      user_id: 'user',
+    });
+
+    await fakeCategoriesRepository.create({
+      name: 'another category',
+      user_id: 'user',
+    });
+
+    await expect(
+      updateCategories.execute({
+        user_id: 'user',
+        category_id: category.id,
+        category_name: 'another category',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
