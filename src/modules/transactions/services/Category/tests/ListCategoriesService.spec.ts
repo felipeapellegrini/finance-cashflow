@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeCategoriesRepository from '../../../repositories/fakes/FakeCategoriesRepository';
 import ListCategoryService from '../services/ListCategoriesService';
 
@@ -24,5 +24,11 @@ describe('ListCategories', () => {
     const categories = await listCategories.execute('user');
 
     expect(categories).toEqual([categoryA, categoryB]);
+  });
+
+  it('should throw when there is not categories to list', async () => {
+    await expect(listCategories.execute('user')).rejects.toBeInstanceOf(
+      AppError,
+    );
   });
 });
