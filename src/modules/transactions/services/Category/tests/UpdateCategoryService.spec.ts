@@ -25,4 +25,14 @@ describe('UpdateCategories', () => {
     expect(newCategory.name).toBe('new category');
     expect(newCategory.id).toEqual(category.id);
   });
+
+  it('should not be able to update a non existing category', async () => {
+    expect(
+      updateCategories.execute({
+        user_id: 'user',
+        category_name: 'new category',
+        category_id: 'non existing id',
+      }),
+    );
+  });
 });
