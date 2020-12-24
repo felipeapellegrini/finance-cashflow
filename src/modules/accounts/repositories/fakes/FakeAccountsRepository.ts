@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 import IAccountsRepository from '@modules/accounts/repositories/IAccountsRepository';
 import ICreateAccountDTO from '@modules/accounts/dtos/ICreateAccountDTO';
@@ -14,7 +14,7 @@ class FakeAccountsRepository implements IAccountsRepository {
   }: ICreateAccountDTO): Promise<Account> {
     const account = new Account();
 
-    Object.assign(account, { id: uuid(), name, user_id, type });
+    Object.assign(account, { id: v4(), name, user_id, type });
 
     this.accounts.push(account);
 

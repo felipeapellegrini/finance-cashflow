@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import ICreateAccountTypeDTO from '../../dtos/ICreateAccountTypeDTO';
 import IAccountTypesRepository from '../IAccountTypesRepository';
 import AccountType from '../../infra/typeorm/entities/AccountType';
@@ -12,7 +12,7 @@ class AccountTypesRepository implements IAccountTypesRepository {
   }: ICreateAccountTypeDTO): Promise<AccountType> {
     const accountType = new AccountType();
 
-    Object.assign(accountType, { id: uuid(), user_id, name });
+    Object.assign(accountType, { id: v4(), user_id, name });
 
     this.accountTypes.push(accountType);
 
