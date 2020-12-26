@@ -104,4 +104,26 @@ describe('UpdateAccount', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to update an account from another user', async () => {
+    await fakeAccountTypesRepository.create({
+      user_id: 'user',
+      name: 'account-type',
+    });
+
+    const account = await fakeAccountsRepository.create({
+      name: 'account',
+      type: 'account-type',
+      user_id: 'user',
+    });
+
+    await expect(
+      updateAccount.execute({
+        name: 'new account',
+        id: account.id,
+        user_id: 'user-2',
+        type_name: 'account-type',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
