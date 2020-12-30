@@ -35,4 +35,24 @@ describe('UpdateCostCenter', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to set new cost center name to a existing one', async () => {
+    await fakeCostCentersRepository.create({
+      name: 'cost center',
+      user_id: 'user',
+    });
+
+    const costCenter2 = await fakeCostCentersRepository.create({
+      name: 'cost center 2',
+      user_id: 'user',
+    });
+
+    await expect(
+      updateCostCenter.execute({
+        user_id: 'user',
+        cost_center_id: costCenter2.id,
+        cost_center_name: 'cost center',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
