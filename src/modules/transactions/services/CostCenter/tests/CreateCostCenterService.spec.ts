@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeCostCentersRepository from '../../../repositories/fakes/FakeCostCentersRepository';
 import CreateCostCenterService from '../services/CreateCostCenterService';
 
@@ -18,5 +18,19 @@ describe('CreateCostCenter', () => {
 
     expect(costCenter).toHaveProperty('id');
     expect(costCenter.name).toBe('cost center');
+  });
+
+  it('should not be able to create two cost centers with the same name', async () => {
+    await createCostCenter.execute({
+      name: 'cost center',
+      user_id: 'user',
+    });
+
+    await expect(
+      createCostCenter.execute({
+        name: 'cost center',
+        user_id: 'user',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
