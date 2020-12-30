@@ -13,7 +13,7 @@ class ListCostCentersService {
   public async execute(user_id: string): Promise<CostCenter[] | undefined> {
     const costCenters = await this.costCentersRepository.findAll(user_id);
 
-    if (costCenters?.length === 0) {
+    if (!costCenters || costCenters.length === 0) {
       throw new AppError(
         'There is no cost centers registered, please register one.',
       );
