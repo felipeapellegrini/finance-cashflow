@@ -65,7 +65,7 @@ class FakeCostCentersRepository implements ICostCentersRepository {
   }
 
   public async delete(cost_center: CostCenter): Promise<void> {
-    this.costCenters.filter(
+    this.costCenters = this.costCenters.filter(
       keepCostCenter =>
         keepCostCenter.id !== cost_center.id &&
         keepCostCenter.user_id === cost_center.user_id,
