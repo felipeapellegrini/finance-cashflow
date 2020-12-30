@@ -34,21 +34,22 @@ describe('CreateCategory', () => {
     expect(subcategory.category_id).toBe(category.id);
   });
 
-  it('should not be able to create two subcategories with the same name', async () => {
-    await createCategory.execute({
+  it('should not be able to create two subcategories with the same name for the same category', async () => {
+    const category = await createCategory.execute({
       name: 'category',
       user_id: 'user',
     });
-    await createSubcategory.execute({
+    const subcategory = await createSubcategory.execute({
       user_id: 'user',
-      category_name: 'category',
+      category_name: category.name,
       subcategory_name: 'subcategory',
     });
+
     await expect(
       createSubcategory.execute({
         user_id: 'user',
-        category_name: 'category',
-        subcategory_name: 'subcategory',
+        category_name: category.name,
+        subcategory_name: subcategory.name,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
