@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeCostCentersRepository from '../../../repositories/fakes/FakeCostCentersRepository';
 import DeleteCostCenterService from '../services/DeleteCostCenterService';
 
@@ -27,5 +27,14 @@ describe('DeleteCostCenter', () => {
     });
 
     expect(costCenters).toBeUndefined();
+  });
+
+  it('should not be able to delete a non existing cost center', async () => {
+    await expect(
+      deleteCostCenter.execute({
+        user_id: 'user',
+        id: 'non existing cost center',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
