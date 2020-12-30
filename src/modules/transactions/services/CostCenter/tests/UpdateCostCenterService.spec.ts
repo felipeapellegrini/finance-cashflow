@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeCostCentersRepository from '../../../repositories/fakes/FakeCostCentersRepository';
 import UpdateCostCenterService from '../services/UpdateCostCenterService';
 
@@ -24,5 +24,15 @@ describe('UpdateCostCenter', () => {
 
     expect(changedCostCenter.id).toBe(costCenter.id);
     expect(changedCostCenter.name).toBe('new cost center');
+  });
+
+  it('should not be able to update a non existing cost center', async () => {
+    await expect(
+      updateCostCenter.execute({
+        user_id: 'user',
+        cost_center_name: 'new name',
+        cost_center_id: 'non existing',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
