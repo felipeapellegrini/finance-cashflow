@@ -1,4 +1,3 @@
-// import AppError from '@shared/errors/AppError';
 import FakeCostCentersRepository from '../../../repositories/fakes/FakeCostCentersRepository';
 import ListCostCentersService from '../services/ListCostCentersService';
 
