@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import AuthenticateUserService from './AuthenticateUserService';
@@ -33,5 +33,29 @@ describe('AuthenticateUser', () => {
 
     expect(response).toHaveProperty('token');
     expect(response.user).toBe(user);
+  });
+
+  it('should not be able to authenticate an user with wrong email', async () => {
+    await expect(
+      authenticate.execute({
+        email: 'user@mail.com',
+        password: '123456',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to authenticate an user with wrong password', async () => {
+    await createUser.execute({
+      name: 'user',
+      email: 'user@mail.com',
+      password: '123456',
+    });
+
+    await expect(
+      authenticate.execute({
+        email: 'user@mail.com',
+        password: '123123',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
