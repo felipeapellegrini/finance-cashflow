@@ -1,3 +1,4 @@
+import AppError from '@shared/errors/AppError';
 import FakeCostCentersRepository from '../../../repositories/fakes/FakeCostCentersRepository';
 import ListCostCentersService from '../services/ListCostCentersService';
 
@@ -18,5 +19,11 @@ describe('ListCostCenter', () => {
     const costCenters = await listCostCenter.execute('user');
 
     expect(costCenters).toEqual([costCenter]);
+  });
+
+  it('should not be able to list cost centers when they do not exist', async () => {
+    await expect(listCostCenter.execute('user')).rejects.toBeInstanceOf(
+      AppError,
+    );
   });
 });
