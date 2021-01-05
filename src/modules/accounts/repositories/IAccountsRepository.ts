@@ -1,10 +1,15 @@
 import Account from '@modules/accounts/infra/typeorm/entities/Account';
-import ICreateAccountDTO from '@modules/accounts/dtos/ICreateAccountDTO';
+import {
+  ICreateAccount,
+  IFindByName,
+  IFindById,
+  IFindAll,
+} from '@modules/accounts/dtos/IAccountDTO';
 
 export default interface IAccountsRepository {
-  create(data: ICreateAccountDTO): Promise<Account>;
+  create(data: ICreateAccount): Promise<Account>;
   update(account: Account): Promise<Account>;
-  findByName(user_id: string, name: string): Promise<Account | undefined>;
-  findById(user_id: string, id: string): Promise<Account | undefined>;
-  findAll(user_id: string): Promise<Account[] | undefined>;
+  findByName(data: IFindByName): Promise<Account | undefined>;
+  findById(data: IFindById): Promise<Account | undefined>;
+  findAll(data: IFindAll): Promise<Account[] | undefined>;
 }

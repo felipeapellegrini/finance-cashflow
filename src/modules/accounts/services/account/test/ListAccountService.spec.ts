@@ -23,21 +23,23 @@ describe('ListAccount', () => {
     const account = await fakeAccountsRepository.create({
       name: 'account',
       user_id: 'user',
-      type: 'account-type',
+      account_type: 'account-type',
     });
 
     const account2 = await fakeAccountsRepository.create({
       name: 'account-2',
       user_id: 'user',
-      type: 'account-type',
+      account_type: 'account-type',
     });
 
-    const accounts = await listAccount.execute('user');
+    const accounts = await listAccount.execute({ user_id: 'user' });
 
     expect(accounts).toEqual([account, account2]);
   });
 
   it('should throw if user has no accounts registered', async () => {
-    await expect(listAccount.execute('user')).rejects.toBeInstanceOf(AppError);
+    await expect(
+      listAccount.execute({ user_id: 'user' }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

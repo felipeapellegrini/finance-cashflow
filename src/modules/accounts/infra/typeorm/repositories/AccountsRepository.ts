@@ -1,5 +1,10 @@
 import IAccountsRepository from '@modules/accounts/repositories/IAccountsRepository';
-import ICreateAccountDTO from '@modules/accounts/dtos/ICreateAccountDTO';
+import {
+  ICreateAccount,
+  IFindAll,
+  IFindById,
+  IFindByName,
+} from '@modules/accounts/dtos/IAccountDTO';
 import Account from '@modules/accounts/infra/typeorm/entities/Account';
 import { Repository, getRepository } from 'typeorm';
 
@@ -13,12 +18,12 @@ class AccountsRepository implements IAccountsRepository {
   public async create({
     name,
     user_id,
-    type,
-  }: ICreateAccountDTO): Promise<Account> {
+    account_type,
+  }: ICreateAccount): Promise<Account> {
     const account = this.ormRepository.create({
       name,
       user_id,
-      type,
+      type: account_type,
     });
 
     await this.ormRepository.save(account);
@@ -30,10 +35,10 @@ class AccountsRepository implements IAccountsRepository {
     return this.ormRepository.save(account);
   }
 
-  public async findByName(
-    user_id: string,
-    name: string,
-  ): Promise<Account | undefined> {
+  public async findByName({
+    name,
+    user_id,
+  }: IFindByName): Promise<Account | undefined> {
     const account = await this.ormRepository.findOne({
       where: {
         user_id,
@@ -44,10 +49,10 @@ class AccountsRepository implements IAccountsRepository {
     return account;
   }
 
-  public async findById(
-    user_id: string,
-    id: string,
-  ): Promise<Account | undefined> {
+  public async findById({
+    user_id,
+    id,
+  }: IFindById): Promise<Account | undefined> {
     const account = await this.ormRepository.findOne({
       where: {
         user_id,
@@ -58,7 +63,7 @@ class AccountsRepository implements IAccountsRepository {
     return account;
   }
 
-  public async findAll(user_id: string): Promise<Account[]> {
+  public async findAll({ user_id }: IFindAll): Promise<Account[]> {
     const accounts = await this.ormRepository.find({
       where: {
         user_id,

@@ -3,13 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import IAccountsRepository from '../../../repositories/IAccountsRepository';
 import Account from '../../../infra/typeorm/entities/Account';
 import IAccountTypesRepository from '../../../repositories/IAccountTypesRepository';
-
-interface IRequest {
-  name: string;
-  id: string;
-  user_id: string;
-  type_name: string;
-}
+import { IUpdateAccount } from '../../../dtos/IAccountDTO';
 
 @injectable()
 class CreateAccountService {
@@ -25,18 +19,18 @@ class CreateAccountService {
     name,
     id,
     user_id,
-    type_name,
-  }: IRequest): Promise<Account> {
-    const account = await this.accountsRepository.findById(user_id, id);
+    account_type,
+  }: IUpdateAccount): Promise<Account> {
+    const account = await this.accountsRepository.findById({ user_id, id });
 
     if (!account) {
       throw new AppError('This account does not exist.');
     }
 
-    const checkNewName = await this.accountsRepository.findByName(
+    const checkNewName = await this.accountsRepository.findByName({
       user_id,
       name,
-    );
+    });
 
     if (checkNewName && checkNewName.id !== id) {
       throw new AppError(
@@ -46,7 +40,7 @@ class CreateAccountService {
 
     const accountType = await this.accountTypesRepository.findByName({
       user_id,
-      name: type_name,
+      name: account_type,
     });
 
     if (!accountType) {

@@ -28,7 +28,7 @@ class AccountsController {
     try {
       const user_id = request.user.id;
       const { id } = request.params;
-      const { name, type_name } = request.body;
+      const { name, account_type } = request.body;
 
       const updateAccount = container.resolve(UpdateAccountService);
 
@@ -36,7 +36,7 @@ class AccountsController {
         id,
         name,
         user_id,
-        type_name,
+        account_type,
       });
 
       return response.json(account);
@@ -51,7 +51,7 @@ class AccountsController {
 
       const accounts = container.resolve(ListAccountsService);
 
-      const accountsList = await accounts.execute(user_id);
+      const accountsList = await accounts.execute({ user_id });
 
       return response.json(accountsList);
     } catch (err) {

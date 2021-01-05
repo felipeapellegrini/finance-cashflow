@@ -1,7 +1,12 @@
 import { v4 } from 'uuid';
 
 import IAccountsRepository from '@modules/accounts/repositories/IAccountsRepository';
-import ICreateAccountDTO from '@modules/accounts/dtos/ICreateAccountDTO';
+import {
+  ICreateAccount,
+  IFindAll,
+  IFindById,
+  IFindByName,
+} from '@modules/accounts/dtos/IAccountDTO';
 import Account from '@modules/accounts/infra/typeorm/entities/Account';
 
 class FakeAccountsRepository implements IAccountsRepository {
@@ -10,11 +15,11 @@ class FakeAccountsRepository implements IAccountsRepository {
   public async create({
     name,
     user_id,
-    type,
-  }: ICreateAccountDTO): Promise<Account> {
+    account_type,
+  }: ICreateAccount): Promise<Account> {
     const account = new Account();
 
-    Object.assign(account, { id: v4(), name, user_id, type });
+    Object.assign(account, { id: v4(), name, user_id, account_type });
 
     this.accounts.push(account);
 
@@ -33,10 +38,10 @@ class FakeAccountsRepository implements IAccountsRepository {
     return account;
   }
 
-  public async findByName(
-    user_id: string,
-    name: string,
-  ): Promise<Account | undefined> {
+  public async findByName({
+    user_id,
+    name,
+  }: IFindByName): Promise<Account | undefined> {
     const findAccount = this.accounts.find(
       account => account.name === name && account.user_id === user_id,
     );
@@ -44,10 +49,10 @@ class FakeAccountsRepository implements IAccountsRepository {
     return findAccount;
   }
 
-  public async findById(
-    user_id: string,
-    id: string,
-  ): Promise<Account | undefined> {
+  public async findById({
+    user_id,
+    id,
+  }: IFindById): Promise<Account | undefined> {
     const findAccount = this.accounts.find(
       account => account.id === id && account.user_id === user_id,
     );
@@ -55,7 +60,7 @@ class FakeAccountsRepository implements IAccountsRepository {
     return findAccount;
   }
 
-  public async findAll(user_id: string): Promise<Account[]> {
+  public async findAll({ user_id }: IFindAll): Promise<Account[]> {
     const findAccounts = this.accounts.filter(
       account => account.user_id === user_id,
     );

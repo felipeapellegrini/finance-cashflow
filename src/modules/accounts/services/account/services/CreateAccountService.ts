@@ -3,12 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import IAccountsRepository from '../../../repositories/IAccountsRepository';
 import Account from '../../../infra/typeorm/entities/Account';
 import IAccountTypesRepository from '../../../repositories/IAccountTypesRepository';
-
-interface IRequest {
-  name: string;
-  user_id: string;
-  account_type: string;
-}
+import { ICreateAccount } from '../../../dtos/IAccountDTO';
 
 @injectable()
 class CreateAccountService {
@@ -24,11 +19,11 @@ class CreateAccountService {
     name,
     user_id,
     account_type,
-  }: IRequest): Promise<Account> {
-    const checkAccountName = await this.accountsRepository.findByName(
-      user_id,
+  }: ICreateAccount): Promise<Account> {
+    const checkAccountName = await this.accountsRepository.findByName({
       name,
-    );
+      user_id,
+    });
 
     if (checkAccountName) {
       throw new AppError('This account name is already registered');
@@ -46,7 +41,7 @@ class CreateAccountService {
     const account = await this.accountsRepository.create({
       name,
       user_id,
-      type: accountType.id,
+      account_type: accountType.id,
     });
 
     return account;

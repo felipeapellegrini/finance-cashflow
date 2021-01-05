@@ -26,14 +26,14 @@ describe('UpdateAccount', () => {
     const account = await fakeAccountsRepository.create({
       name: 'account-A',
       user_id: 'user',
-      type: accountType.name,
+      account_type: accountType.name,
     });
 
     const updatedAccount = await updateAccount.execute({
       name: 'account-B',
       id: account.id,
       user_id: 'user',
-      type_name: accountType.name,
+      account_type: accountType.name,
     });
 
     expect(updatedAccount.name).toBe('account-B');
@@ -50,7 +50,7 @@ describe('UpdateAccount', () => {
         name: 'invalid-account',
         id: 'invalid-id',
         user_id: 'user',
-        type_name: 'account-type',
+        account_type: 'account-type',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -64,13 +64,13 @@ describe('UpdateAccount', () => {
     await fakeAccountsRepository.create({
       name: 'account-A',
       user_id: 'user',
-      type: 'account-type',
+      account_type: 'account-type',
     });
 
     const accountB = await fakeAccountsRepository.create({
       name: 'account-B',
       user_id: 'user',
-      type: 'account-type',
+      account_type: 'account-type',
     });
 
     await expect(
@@ -78,7 +78,7 @@ describe('UpdateAccount', () => {
         name: 'account-A',
         id: accountB.id,
         user_id: 'user',
-        type_name: 'account-type',
+        account_type: 'account-type',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -92,7 +92,7 @@ describe('UpdateAccount', () => {
     const account = await fakeAccountsRepository.create({
       name: 'account',
       user_id: 'user',
-      type: 'account-type',
+      account_type: 'account-type',
     });
 
     await expect(
@@ -100,7 +100,7 @@ describe('UpdateAccount', () => {
         name: account.name,
         id: account.id,
         user_id: account.user_id,
-        type_name: 'invalid-account-type',
+        account_type: 'invalid-account-type',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -113,7 +113,7 @@ describe('UpdateAccount', () => {
 
     const account = await fakeAccountsRepository.create({
       name: 'account',
-      type: 'account-type',
+      account_type: 'account-type',
       user_id: 'user',
     });
 
@@ -122,7 +122,7 @@ describe('UpdateAccount', () => {
         name: 'new account',
         id: account.id,
         user_id: 'user-2',
-        type_name: 'account-type',
+        account_type: 'account-type',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
