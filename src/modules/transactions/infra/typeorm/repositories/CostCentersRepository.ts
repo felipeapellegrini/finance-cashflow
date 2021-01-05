@@ -1,5 +1,8 @@
-import ICreateCostCenterDTO from '@modules/transactions/dtos/ICreateCostCenterDTO';
-import IFindByIdDTO from '@modules/transactions/dtos/IFindByIdDTO';
+import {
+  ICreateCostCenter,
+  IFindAll,
+  IFindById,
+} from '@modules/transactions/dtos/HandleCostCentersDTO';
 import { Repository, getRepository } from 'typeorm';
 import ICostCentersRepository from '../../../repositories/ICostCentersRepository';
 import CostCenter from '../entities/CostCenter';
@@ -14,7 +17,7 @@ class CostCentersRepository implements ICostCentersRepository {
   public async create({
     name,
     user_id,
-  }: ICreateCostCenterDTO): Promise<CostCenter> {
+  }: ICreateCostCenter): Promise<CostCenter> {
     const costCenter = this.ormRepository.create({
       name,
       user_id,
@@ -32,7 +35,7 @@ class CostCentersRepository implements ICostCentersRepository {
   public async findByName({
     user_id,
     name,
-  }: ICreateCostCenterDTO): Promise<CostCenter | undefined> {
+  }: ICreateCostCenter): Promise<CostCenter | undefined> {
     const costCenter = await this.ormRepository.findOne({
       where: {
         user_id,
@@ -46,7 +49,7 @@ class CostCentersRepository implements ICostCentersRepository {
   public async findById({
     user_id,
     id,
-  }: IFindByIdDTO): Promise<CostCenter | undefined> {
+  }: IFindById): Promise<CostCenter | undefined> {
     const costCenter = await this.ormRepository.findOne({
       where: {
         user_id,
@@ -57,7 +60,7 @@ class CostCentersRepository implements ICostCentersRepository {
     return costCenter;
   }
 
-  public async findAll(user_id: string): Promise<CostCenter[]> {
+  public async findAll({ user_id }: IFindAll): Promise<CostCenter[]> {
     const costCenters = this.ormRepository.find({
       where: {
         user_id,

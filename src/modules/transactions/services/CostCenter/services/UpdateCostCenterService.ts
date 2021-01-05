@@ -2,12 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import ICostCentersRepository from '../../../repositories/ICostCentersRepository';
 import CostCenter from '../../../infra/typeorm/entities/CostCenter';
-
-interface IRequest {
-  user_id: string;
-  cost_center_id: string;
-  cost_center_name: string;
-}
+import { IUpdateCostCenter } from '../../../dtos/HandleCostCentersDTO';
 
 @injectable()
 class UpdateCostCenterService {
@@ -18,12 +13,12 @@ class UpdateCostCenterService {
 
   public async execute({
     user_id,
-    cost_center_name,
-    cost_center_id,
-  }: IRequest): Promise<CostCenter> {
+    name,
+    id,
+  }: IUpdateCostCenter): Promise<CostCenter> {
     const costCenter = await this.costCentersRepository.findById({
       user_id,
-      id: cost_center_id,
+      id,
     });
 
     if (!costCenter) {
@@ -32,14 +27,14 @@ class UpdateCostCenterService {
 
     const checkName = await this.costCentersRepository.findByName({
       user_id,
-      name: cost_center_name,
+      name,
     });
 
-    if (checkName && checkName.id !== cost_center_id) {
+    if (checkName && checkName.id !== id) {
       throw new AppError('This Cost Center name already exists.');
     }
 
-    costCenter.name = cost_center_name;
+    costCenter.name = name;
 
     await this.costCentersRepository.update(costCenter);
 

@@ -1,7 +1,10 @@
 import { v4 } from 'uuid';
 
-import ICreateCostCenterDTO from '@modules/transactions/dtos/ICreateCostCenterDTO';
-import IFindByIdDTO from '@modules/transactions/dtos/IFindByIdDTO';
+import {
+  ICreateCostCenter,
+  IFindAll,
+  IFindById,
+} from '@modules/transactions/dtos/HandleCostCentersDTO';
 import ICostCentersRepository from '../ICostCentersRepository';
 import CostCenter from '../../infra/typeorm/entities/CostCenter';
 
@@ -11,7 +14,7 @@ class FakeCostCentersRepository implements ICostCentersRepository {
   public async create({
     name,
     user_id,
-  }: ICreateCostCenterDTO): Promise<CostCenter> {
+  }: ICreateCostCenter): Promise<CostCenter> {
     const costCenter = new CostCenter();
 
     Object.assign(costCenter, { id: v4(), name, user_id });
@@ -36,7 +39,7 @@ class FakeCostCentersRepository implements ICostCentersRepository {
   public async findByName({
     user_id,
     name,
-  }: ICreateCostCenterDTO): Promise<CostCenter | undefined> {
+  }: ICreateCostCenter): Promise<CostCenter | undefined> {
     const costCenter = this.costCenters.find(
       cost_center =>
         cost_center.name === name && cost_center.user_id === user_id,
@@ -48,7 +51,7 @@ class FakeCostCentersRepository implements ICostCentersRepository {
   public async findById({
     user_id,
     id,
-  }: IFindByIdDTO): Promise<CostCenter | undefined> {
+  }: IFindById): Promise<CostCenter | undefined> {
     const costCenter = this.costCenters.find(
       cost_center => cost_center.id === id && cost_center.user_id === user_id,
     );
@@ -56,7 +59,7 @@ class FakeCostCentersRepository implements ICostCentersRepository {
     return costCenter;
   }
 
-  public async findAll(user_id: string): Promise<CostCenter[]> {
+  public async findAll({ user_id }: IFindAll): Promise<CostCenter[]> {
     const costCenter = this.costCenters.filter(
       costCenters => costCenters.user_id === user_id,
     );

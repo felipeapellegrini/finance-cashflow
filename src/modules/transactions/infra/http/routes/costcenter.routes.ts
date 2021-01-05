@@ -10,6 +10,6 @@ costCentersRouter.use(ensureAuthenticated);
 costCentersRouter.post('/', costCentersController.create);
 costCentersRouter.delete('/:id', costCentersController.delete);
 costCentersRouter.get('/', costCentersController.index);
-costCentersRouter.put('/:cost_center_id', costCentersController.update);
+costCentersRouter.put('/:id', costCentersController.update);
 
 export default costCentersRouter;

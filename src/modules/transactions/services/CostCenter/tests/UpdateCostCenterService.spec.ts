@@ -18,8 +18,8 @@ describe('UpdateCostCenter', () => {
 
     const changedCostCenter = await updateCostCenter.execute({
       user_id: 'user',
-      cost_center_name: 'new cost center',
-      cost_center_id: costCenter.id,
+      name: 'new cost center',
+      id: costCenter.id,
     });
 
     expect(changedCostCenter.id).toBe(costCenter.id);
@@ -30,8 +30,8 @@ describe('UpdateCostCenter', () => {
     await expect(
       updateCostCenter.execute({
         user_id: 'user',
-        cost_center_name: 'new name',
-        cost_center_id: 'non existing',
+        name: 'new name',
+        id: 'non existing',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -50,8 +50,8 @@ describe('UpdateCostCenter', () => {
     await expect(
       updateCostCenter.execute({
         user_id: 'user',
-        cost_center_id: costCenter2.id,
-        cost_center_name: 'cost center',
+        id: costCenter2.id,
+        name: 'cost center',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

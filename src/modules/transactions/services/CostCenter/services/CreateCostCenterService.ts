@@ -2,11 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import ICostCentersRepository from '../../../repositories/ICostCentersRepository';
 import CostCenter from '../../../infra/typeorm/entities/CostCenter';
-
-interface IRequest {
-  user_id: string;
-  name: string;
-}
+import { ICreateCostCenter } from '../../../dtos/HandleCostCentersDTO';
 
 @injectable()
 class CreateCostCenterService {
@@ -15,7 +11,10 @@ class CreateCostCenterService {
     private costCentersRepository: ICostCentersRepository,
   ) {}
 
-  public async execute({ name, user_id }: IRequest): Promise<CostCenter> {
+  public async execute({
+    name,
+    user_id,
+  }: ICreateCostCenter): Promise<CostCenter> {
     const checkName = await this.costCentersRepository.findByName({
       user_id,
       name,

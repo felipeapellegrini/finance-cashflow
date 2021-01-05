@@ -2,6 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import ICostCentersRepository from '../../../repositories/ICostCentersRepository';
 import CostCenter from '../../../infra/typeorm/entities/CostCenter';
+import { IFindAll } from '../../../dtos/HandleCostCentersDTO';
 
 @injectable()
 class ListCostCentersService {
@@ -10,8 +11,10 @@ class ListCostCentersService {
     private costCentersRepository: ICostCentersRepository,
   ) {}
 
-  public async execute(user_id: string): Promise<CostCenter[] | undefined> {
-    const costCenters = await this.costCentersRepository.findAll(user_id);
+  public async execute({
+    user_id,
+  }: IFindAll): Promise<CostCenter[] | undefined> {
+    const costCenters = await this.costCentersRepository.findAll({ user_id });
 
     if (!costCenters || costCenters.length === 0) {
       throw new AppError(

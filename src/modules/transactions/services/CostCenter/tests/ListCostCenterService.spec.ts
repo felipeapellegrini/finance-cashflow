@@ -16,14 +16,14 @@ describe('ListCostCenter', () => {
       name: 'cost center',
     });
 
-    const costCenters = await listCostCenter.execute('user');
+    const costCenters = await listCostCenter.execute({ user_id: 'user' });
 
     expect(costCenters).toEqual([costCenter]);
   });
 
   it('should not be able to list cost centers when they do not exist', async () => {
-    await expect(listCostCenter.execute('user')).rejects.toBeInstanceOf(
-      AppError,
-    );
+    await expect(
+      listCostCenter.execute({ user_id: 'user' }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

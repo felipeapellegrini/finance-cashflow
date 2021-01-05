@@ -48,7 +48,7 @@ export default class CostCentersController {
 
       const listCostCenters = container.resolve(ListCostCentersService);
 
-      const costCenters = await listCostCenters.execute(user_id);
+      const costCenters = await listCostCenters.execute({ user_id });
 
       return response.json(costCenters);
     } catch (err) {
@@ -59,15 +59,15 @@ export default class CostCentersController {
   public async update(request: Request, response: Response): Promise<Response> {
     try {
       const user_id = request.user.id;
-      const { cost_center_id } = request.params;
-      const { cost_center_name } = request.body;
+      const { id } = request.params;
+      const { name } = request.body;
 
       const updateCostCenter = container.resolve(UpdateCostCenterService);
 
       const costCenter = await updateCostCenter.execute({
         user_id,
-        cost_center_id,
-        cost_center_name,
+        id,
+        name,
       });
 
       return response.json(costCenter);
