@@ -12,7 +12,7 @@
     "test:verbose": "jest --passWithNoTests",
     "test:unit": "yarn test --watch -c jest-unit-config.js",
     "test:staged": "yarn test --findRelatedTests",
-    "test:ci": "yarn test  --coverage"
+    "test:ci": "jest --passWithNoTests --silent --noStackTrace  --coverage"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
