@@ -18,8 +18,8 @@ describe('UpdateCategories', () => {
 
     const newCategory = await updateCategories.execute({
       user_id: 'user',
-      category_id: category.id,
-      category_name: 'new category',
+      id: category.id,
+      name: 'new category',
     });
 
     expect(newCategory.name).toBe('new category');
@@ -30,8 +30,8 @@ describe('UpdateCategories', () => {
     expect(
       updateCategories.execute({
         user_id: 'user',
-        category_name: 'new category',
-        category_id: 'non existing id',
+        name: 'new category',
+        id: 'non existing id',
       }),
     );
   });
@@ -50,8 +50,8 @@ describe('UpdateCategories', () => {
     await expect(
       updateCategories.execute({
         user_id: 'user',
-        category_id: category.id,
-        category_name: 'another category',
+        id: category.id,
+        name: 'another category',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

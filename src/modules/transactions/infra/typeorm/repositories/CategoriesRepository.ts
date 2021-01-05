@@ -1,5 +1,4 @@
-import HandleCategoriesDTO from '@modules/transactions/dtos/HandleCategoriesDTO';
-import IFindByIdDTO from '@modules/transactions/dtos/IFindByIdDTO';
+import { ICategory } from '@modules/transactions/dtos/HandleCategoriesDTO';
 import { Repository, getRepository } from 'typeorm';
 import ICategoriesRepository from '../../../repositories/ICategoriesRepository';
 import Category from '../entities/Category';
@@ -11,10 +10,7 @@ class CategoriesRepository implements ICategoriesRepository {
     this.ormRepository = getRepository(Category);
   }
 
-  public async create({
-    name,
-    user_id,
-  }: HandleCategoriesDTO): Promise<Category> {
+  public async create({ name, user_id }: ICategory): Promise<Category> {
     const category = this.ormRepository.create({
       name,
       user_id,
@@ -32,7 +28,7 @@ class CategoriesRepository implements ICategoriesRepository {
   public async findByName({
     user_id,
     name,
-  }: HandleCategoriesDTO): Promise<Category | undefined> {
+  }: ICategory): Promise<Category | undefined> {
     const category = await this.ormRepository.findOne({
       where: {
         user_id,
@@ -46,7 +42,7 @@ class CategoriesRepository implements ICategoriesRepository {
   public async findById({
     user_id,
     id,
-  }: IFindByIdDTO): Promise<Category | undefined> {
+  }: ICategory): Promise<Category | undefined> {
     const category = await this.ormRepository.findOne({
       where: {
         user_id,
@@ -57,7 +53,7 @@ class CategoriesRepository implements ICategoriesRepository {
     return category;
   }
 
-  public async findAll(user_id: string): Promise<Category[]> {
+  public async findAll({ user_id }: ICategory): Promise<Category[]> {
     const category = await this.ormRepository.find({
       where: {
         user_id,

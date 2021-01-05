@@ -21,14 +21,14 @@ describe('ListCategories', () => {
       name: 'category B',
     });
 
-    const categories = await listCategories.execute('user');
+    const categories = await listCategories.execute({ user_id: 'user' });
 
     expect(categories).toEqual([categoryA, categoryB]);
   });
 
   it('should throw when there is not categories to list', async () => {
-    await expect(listCategories.execute('user')).rejects.toBeInstanceOf(
-      AppError,
-    );
+    await expect(
+      listCategories.execute({ user_id: 'user' }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

@@ -12,7 +12,7 @@ export default class CategoriesController {
 
       const listCategories = container.resolve(ListCategoriesService);
 
-      const categories = await listCategories.execute(user_id);
+      const categories = await listCategories.execute({ user_id });
 
       return response.json(categories);
     } catch (err) {
@@ -53,15 +53,15 @@ export default class CategoriesController {
   public async update(request: Request, response: Response): Promise<Response> {
     try {
       const user_id = request.user.id;
-      const { category_name } = request.body;
-      const { category_id } = request.params;
+      const { name } = request.body;
+      const { id } = request.params;
 
       const updateCategory = container.resolve(UpdateCategoryService);
 
       const category = await updateCategory.execute({
         user_id,
-        category_id,
-        category_name,
+        id,
+        name,
       });
 
       return response.json(category);

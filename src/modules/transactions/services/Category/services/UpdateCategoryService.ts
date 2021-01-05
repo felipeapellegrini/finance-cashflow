@@ -2,12 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import ICategoriesRepository from '../../../repositories/ICategoriesRepository';
 import Category from '../../../infra/typeorm/entities/Category';
-
-interface IRequest {
-  user_id: string;
-  category_id: string;
-  category_name: string;
-}
+import { ICategory } from '../../../dtos/HandleCategoriesDTO';
 
 @injectable()
 class UpdateCategoryService {
@@ -16,14 +11,10 @@ class UpdateCategoryService {
     private categoriesRepository: ICategoriesRepository,
   ) {}
 
-  public async execute({
-    user_id,
-    category_id,
-    category_name,
-  }: IRequest): Promise<Category> {
+  public async execute({ user_id, id, name }: ICategory): Promise<Category> {
     const category = await this.categoriesRepository.findById({
       user_id,
-      id: category_id,
+      id,
     });
 
     if (!category) {
@@ -32,14 +23,18 @@ class UpdateCategoryService {
 
     const checkName = await this.categoriesRepository.findByName({
       user_id,
-      name: category_name,
+      name,
     });
 
     if (checkName && checkName.id !== category.id) {
       throw new AppError('This Category name already exists.');
     }
 
-    category.name = category_name;
+    if (!name) {
+      throw new AppError('New name can not be blank');
+    }
+
+    category.name = name;
 
     await this.categoriesRepository.update(category);
 

@@ -2,11 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import ICategoriesRepository from '../../../repositories/ICategoriesRepository';
 import Category from '../../../infra/typeorm/entities/Category';
-
-interface IRequest {
-  user_id: string;
-  name: string;
-}
+import { ICategory } from '../../../dtos/HandleCategoriesDTO';
 
 @injectable()
 export default class CreateCategoryService {
@@ -15,7 +11,7 @@ export default class CreateCategoryService {
     private categoriesRepository: ICategoriesRepository,
   ) {}
 
-  public async execute({ user_id, name }: IRequest): Promise<Category> {
+  public async execute({ user_id, name }: ICategory): Promise<Category> {
     const checkName = await this.categoriesRepository.findByName({
       user_id,
       name,

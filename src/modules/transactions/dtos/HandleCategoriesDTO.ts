@@ -1,4 +1,5 @@
-export default interface HandleCategoriesDTO {
+export interface ICategory {
+  id?: string;
   user_id: string;
-  name: string;
+  name?: string;
 }

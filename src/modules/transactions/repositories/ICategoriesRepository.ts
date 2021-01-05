@@ -1,12 +1,11 @@
 import Category from '../infra/typeorm/entities/Category';
-import HandleCategoriesDTO from '../dtos/HandleCategoriesDTO';
-import IFindByIdDTO from '../dtos/IFindByIdDTO';
+import { ICategory } from '../dtos/HandleCategoriesDTO';
 
 export default interface ICategoriesRepository {
-  create(data: HandleCategoriesDTO): Promise<Category>;
+  create({ name, user_id }: ICategory): Promise<Category>;
   update(category: Category): Promise<Category>;
-  findByName(data: HandleCategoriesDTO): Promise<Category | undefined>;
-  findById({ user_id, id }: IFindByIdDTO): Promise<Category | undefined>;
-  findAll(user_id: string): Promise<Category[] | undefined>;
+  findByName({ user_id, name }: ICategory): Promise<Category | undefined>;
+  findById({ user_id, id }: ICategory): Promise<Category | undefined>;
+  findAll({ user_id }: ICategory): Promise<Category[] | undefined>;
   delete(category: Category): Promise<void>;
 }

@@ -10,6 +10,6 @@ categoriesRouter.use(ensureAuthenticated);
 categoriesRouter.post('/', categoriesController.create);
 categoriesRouter.delete('/:id', categoriesController.delete);
 categoriesRouter.get('/', categoriesController.index);
-categoriesRouter.put('/:category_id', categoriesController.update);
+categoriesRouter.put('/:id', categoriesController.update);
 
 export default categoriesRouter;

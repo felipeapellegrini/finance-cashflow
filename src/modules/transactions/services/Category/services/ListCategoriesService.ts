@@ -2,6 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import ICategoriesRepository from '../../../repositories/ICategoriesRepository';
 import Category from '../../../infra/typeorm/entities/Category';
+import { ICategory } from '../../../dtos/HandleCategoriesDTO';
 
 @injectable()
 class ListCategoriesService {
@@ -10,8 +11,10 @@ class ListCategoriesService {
     private categoriesRepository: ICategoriesRepository,
   ) {}
 
-  public async execute(user_id: string): Promise<Category[] | undefined> {
-    const categories = await this.categoriesRepository.findAll(user_id);
+  public async execute({
+    user_id,
+  }: ICategory): Promise<Category[] | undefined> {
+    const categories = await this.categoriesRepository.findAll({ user_id });
 
     if (!categories || categories.length === 0) {
       throw new AppError(
