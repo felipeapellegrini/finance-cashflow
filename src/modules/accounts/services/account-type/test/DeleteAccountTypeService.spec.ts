@@ -23,7 +23,10 @@ describe('DeleteAccountType', () => {
       user_id: 'user',
     });
 
-    await deleteAccountType.execute('user', accountType1.id);
+    await deleteAccountType.execute({
+      user_id: 'user',
+      id: accountType1.id,
+    });
 
     await expect(
       fakeAccountTypesRepository.findByName({
@@ -35,7 +38,7 @@ describe('DeleteAccountType', () => {
 
   it('should not be able to delete an non existing account type', async () => {
     await expect(
-      deleteAccountType.execute('user', 'invalid-id'),
+      deleteAccountType.execute({ user_id: 'user', id: 'invalid-id' }),
     ).rejects.toBeInstanceOf(AppError);
   });
 });

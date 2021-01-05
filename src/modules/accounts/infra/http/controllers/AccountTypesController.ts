@@ -31,7 +31,7 @@ class AccountTypesController {
 
       const deleteAccountType = container.resolve(DeleteAccountTypeService);
 
-      await deleteAccountType.execute(user_id, id);
+      await deleteAccountType.execute({ user_id, id });
 
       return response.status(204).send();
     } catch (err) {
@@ -64,7 +64,7 @@ class AccountTypesController {
       const user_id = request.user.id;
       const accountTypes = container.resolve(ListAccountTypesService);
 
-      const accountTypesList = await accountTypes.execute(user_id);
+      const accountTypesList = await accountTypes.execute({ user_id });
 
       return response.json(accountTypesList);
     } catch (err) {

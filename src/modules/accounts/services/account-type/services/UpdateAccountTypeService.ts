@@ -2,12 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import AccountType from '../../../infra/typeorm/entities/AccountType';
 import IAccountTypesRepository from '../../../repositories/IAccountTypesRepository';
-
-interface IRequest {
-  user_id: string;
-  id: string;
-  new_name: string;
-}
+import { IUpdateAccountType } from '../../../dtos/IAccountTypeDTO';
 
 @injectable()
 class UpdateAccountTypeService {
@@ -20,8 +15,11 @@ class UpdateAccountTypeService {
     user_id,
     id,
     new_name,
-  }: IRequest): Promise<AccountType> {
-    const accountType = await this.accountTypesRepository.findById(user_id, id);
+  }: IUpdateAccountType): Promise<AccountType> {
+    const accountType = await this.accountTypesRepository.findById({
+      user_id,
+      id,
+    });
 
     if (!accountType) {
       throw new AppError('Account Type does not exist');

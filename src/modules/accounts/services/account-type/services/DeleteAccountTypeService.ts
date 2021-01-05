@@ -1,6 +1,7 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import IAccountTypesRepository from '../../../repositories/IAccountTypesRepository';
+import { IFindById } from '../../../dtos/IAccountTypeDTO';
 
 @injectable()
 class DeleteAccountTypeService {
@@ -9,17 +10,17 @@ class DeleteAccountTypeService {
     private accountTypesRepository: IAccountTypesRepository,
   ) {}
 
-  public async execute(user_id: string, id: string): Promise<void> {
-    const getAccountType = await this.accountTypesRepository.findById(
+  public async execute({ user_id, id }: IFindById): Promise<void> {
+    const accountType = await this.accountTypesRepository.findById({
       user_id,
       id,
-    );
+    });
 
-    if (!getAccountType) {
+    if (!accountType) {
       throw new AppError('Account Type does not exist');
     }
 
-    await this.accountTypesRepository.delete(getAccountType);
+    await this.accountTypesRepository.delete(accountType);
   }
 }
 

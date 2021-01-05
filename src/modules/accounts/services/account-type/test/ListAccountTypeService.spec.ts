@@ -16,14 +16,14 @@ describe('ListAccountType', () => {
       name: 'account type',
     });
 
-    const accountTypes = await listAccountType.execute('user');
+    const accountTypes = await listAccountType.execute({ user_id: 'user' });
 
     expect(accountTypes).toEqual([accountType]);
   });
 
   it('should not be able to list account types when they do not exist', async () => {
-    await expect(listAccountType.execute('user')).rejects.toBeInstanceOf(
-      AppError,
-    );
+    await expect(
+      listAccountType.execute({ user_id: 'user' }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

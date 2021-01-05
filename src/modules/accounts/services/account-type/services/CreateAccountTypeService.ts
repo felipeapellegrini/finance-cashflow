@@ -2,11 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import IAccountTypesRepository from '../../../repositories/IAccountTypesRepository';
 import AccountType from '../../../infra/typeorm/entities/AccountType';
-
-interface IRequest {
-  name: string;
-  user_id: string;
-}
+import { ICreateAccountType } from '../../../dtos/IAccountTypeDTO';
 
 @injectable()
 class CreateAccountTypeService {
@@ -15,7 +11,10 @@ class CreateAccountTypeService {
     private accountTypesRepository: IAccountTypesRepository,
   ) {}
 
-  public async execute({ name, user_id }: IRequest): Promise<AccountType> {
+  public async execute({
+    name,
+    user_id,
+  }: ICreateAccountType): Promise<AccountType> {
     const checkAccountTypeExists = await this.accountTypesRepository.findByName(
       {
         user_id,
