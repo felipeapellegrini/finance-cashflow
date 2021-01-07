@@ -72,7 +72,7 @@ export default class SubcategoriesRepository
   }
 
   public async delete(subcategory: Subcategory): Promise<void> {
-    this.subcategories.filter(
+    this.subcategories = this.subcategories.filter(
       keepSubcategories =>
         keepSubcategories.id !== subcategory.id &&
         keepSubcategories.user_id === subcategory.user_id,
