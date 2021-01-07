@@ -1,6 +1,6 @@
 import { Repository, getRepository } from 'typeorm';
 import ITransactionsRepository from '../../../repositories/ITransactionsRepository';
-import { ICreateTransactionDTO } from '../../../dtos/ITransactionsDTOS';
+import { ICreateTransactionDTO } from '../../../dtos/HandleTransactionsDTO';
 import Transaction from '../entities/Transaction';
 
 export default class TransactionsRepository implements ITransactionsRepository {

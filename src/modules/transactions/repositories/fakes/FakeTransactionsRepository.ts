@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 
 import Transaction from '@modules/transactions/infra/typeorm/entities/Transaction';
 import ITransactionsRepository from '../ITransactionsRepository';
-import { ICreateTransactionDTO } from '../../dtos/ITransactionsDTOS';
+import { ICreateTransactionDTO } from '../../dtos/HandleTransactionsDTO';
 
 export default class TransactionsRepository implements ITransactionsRepository {
   private transactions: Transaction[] = [];
