@@ -1,13 +1,17 @@
 import { v4 } from 'uuid';
 
-import { ICategory } from '@modules/transactions/dtos/HandleCategoriesDTO';
+import {
+  CreateCategory,
+  FindAll,
+  FindById,
+} from '@modules/transactions/dtos/HandleCategoriesDTO';
 import ICategoriesRepository from '../ICategoriesRepository';
 import Category from '../../infra/typeorm/entities/Category';
 
 class FakeCategoriesRepository implements ICategoriesRepository {
   private categories: Category[] = [];
 
-  public async create({ name, user_id }: ICategory): Promise<Category> {
+  public async create({ name, user_id }: CreateCategory): Promise<Category> {
     const category = new Category();
 
     Object.assign(category, { id: v4(), name, user_id });
@@ -32,7 +36,7 @@ class FakeCategoriesRepository implements ICategoriesRepository {
   public async findByName({
     user_id,
     name,
-  }: ICategory): Promise<Category | undefined> {
+  }: CreateCategory): Promise<Category | undefined> {
     const findCategory = this.categories.find(
       category => category.name === name && category.user_id === user_id,
     );
@@ -43,7 +47,7 @@ class FakeCategoriesRepository implements ICategoriesRepository {
   public async findById({
     user_id,
     id,
-  }: ICategory): Promise<Category | undefined> {
+  }: FindById): Promise<Category | undefined> {
     const findCategory = this.categories.find(
       category => category.id === id && category.user_id === user_id,
     );
@@ -51,7 +55,7 @@ class FakeCategoriesRepository implements ICategoriesRepository {
     return findCategory;
   }
 
-  public async findAll({ user_id }: ICategory): Promise<Category[]> {
+  public async findAll({ user_id }: FindAll): Promise<Category[]> {
     const findCategory = this.categories.filter(
       category => category.user_id === user_id,
     );

@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import ICategoriesRepository from '../../../repositories/ICategoriesRepository';
-import { ICategory } from '../../../dtos/HandleCategoriesDTO';
+import { FindById } from '../../../dtos/HandleCategoriesDTO';
 
 @injectable()
 class DeleteCategoryService {
@@ -10,7 +10,7 @@ class DeleteCategoryService {
     private categoriesRepository: ICategoriesRepository,
   ) {}
 
-  public async execute({ user_id, id }: ICategory): Promise<void> {
+  public async execute({ user_id, id }: FindById): Promise<void> {
     const category = await this.categoriesRepository.findById({
       user_id,
       id,
