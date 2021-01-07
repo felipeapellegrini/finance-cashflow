@@ -3,13 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import ICategoriesRepository from '@modules/transactions/repositories/ICategoriesRepository';
 import ISubcategoriesRepository from '../../../repositories/ISubcategoriesRepository';
-
-interface IRequest {
-  user_id: string;
-  id: string;
-  subcategory_name: string;
-  category_name: string;
-}
+import { UpdateSubcategoryServiceDTO } from '../../../dtos/HandleSubcategoriesDTO';
 
 @injectable()
 export default class UpdateSubcategoryService {
@@ -26,7 +20,7 @@ export default class UpdateSubcategoryService {
     id,
     subcategory_name,
     category_name,
-  }: IRequest): Promise<Subcategory> {
+  }: UpdateSubcategoryServiceDTO): Promise<Subcategory> {
     const subcategory = await this.subcategoriesRepository.findById({
       user_id,
       id,

@@ -3,10 +3,11 @@ import { v4 } from 'uuid';
 import Subcategory from '@modules/transactions/infra/typeorm/entities/Subcategory';
 import ISubcategoriesRepository from '../ISubcategoriesRepository';
 import {
+  FindAll,
   ICreateSubcategoryDTO,
   IFindByIdDTO,
   IFindByNameDTO,
-} from '../../dtos/SubcategoriesDTOS';
+} from '../../dtos/HandleSubcategoriesDTO';
 
 export default class SubcategoriesRepository
   implements ISubcategoriesRepository {
@@ -62,7 +63,7 @@ export default class SubcategoriesRepository
     return subcatergory;
   }
 
-  public async findAll(user_id: string): Promise<Subcategory[]> {
+  public async findAll({ user_id }: FindAll): Promise<Subcategory[]> {
     const subcategory = this.subcategories.filter(
       findSubcategory => findSubcategory.user_id === user_id,
     );

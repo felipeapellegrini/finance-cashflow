@@ -3,12 +3,7 @@ import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import Subcategory from '../../../infra/typeorm/entities/Subcategory';
 import ISubcategoriesRepository from '../../../repositories/ISubcategoriesRepository';
-
-interface IRequest {
-  user_id: string;
-  category_name: string;
-  subcategory_name: string;
-}
+import { CreateSubcategoryServiceDTO } from '../../../dtos/HandleSubcategoriesDTO';
 
 @injectable()
 export default class CreateCategorryService {
@@ -24,7 +19,7 @@ export default class CreateCategorryService {
     user_id,
     subcategory_name,
     category_name,
-  }: IRequest): Promise<Subcategory> {
+  }: CreateSubcategoryServiceDTO): Promise<Subcategory> {
     const category = await this.categoriesRepository.findByName({
       user_id,
       name: category_name,

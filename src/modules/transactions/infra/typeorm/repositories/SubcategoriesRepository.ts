@@ -5,7 +5,8 @@ import {
   ICreateSubcategoryDTO,
   IFindByIdDTO,
   IFindByNameDTO,
-} from '../../../dtos/SubcategoriesDTOS';
+  FindAll,
+} from '../../../dtos/HandleSubcategoriesDTO';
 
 export default class SubcategoriesRepository
   implements ISubcategoriesRepository {
@@ -63,7 +64,7 @@ export default class SubcategoriesRepository
     return subcatergory;
   }
 
-  public async findAll(user_id: string): Promise<Subcategory[]> {
+  public async findAll({ user_id }: FindAll): Promise<Subcategory[]> {
     const subcategory = await this.ormRepository.find({
       where: {
         user_id,

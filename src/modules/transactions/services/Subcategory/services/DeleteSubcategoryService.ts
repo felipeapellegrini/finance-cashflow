@@ -1,11 +1,7 @@
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import ISubcategoriesRepository from '../../../repositories/ISubcategoriesRepository';
-
-interface IRequest {
-  user_id: string;
-  id: string;
-}
+import { IFindByIdDTO } from '../../../dtos/HandleSubcategoriesDTO';
 
 @injectable()
 export default class DeleteSubcategoryService {
@@ -14,7 +10,7 @@ export default class DeleteSubcategoryService {
     private subcategoriesRepository: ISubcategoriesRepository,
   ) {}
 
-  public async execute({ user_id, id }: IRequest): Promise<void> {
+  public async execute({ user_id, id }: IFindByIdDTO): Promise<void> {
     const subcategory = await this.subcategoriesRepository.findById({
       user_id,
       id,

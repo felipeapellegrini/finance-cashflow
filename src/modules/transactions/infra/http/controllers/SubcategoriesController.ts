@@ -12,7 +12,7 @@ export default class SubcategoriesController {
 
       const listSubcategories = container.resolve(ListSubcategoriesService);
 
-      const subcategories = await listSubcategories.execute(user_id);
+      const subcategories = await listSubcategories.execute({ user_id });
 
       return response.json(subcategories);
     } catch (err) {
