@@ -7,6 +7,7 @@ import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
 import costCentersRouter from '@modules/transactions/infra/http/routes/costcenter.routes';
 import categoriesRouter from '@modules/transactions/infra/http/routes/categories.routes';
 import subcategoriesRouter from '@modules/transactions/infra/http/routes/subcategories.routes';
+import transactionsRouter from '@modules/transactions/infra/http/routes/transactions.routes';
 
 const routes = Router();
 
@@ -16,5 +17,6 @@ routes.use('/sessions', sessionsRouter);
 routes.use('/cost-centers', costCentersRouter);
 routes.use('/categories', categoriesRouter);
 routes.use('/subcategories', subcategoriesRouter);
+routes.use('/transactions', transactionsRouter);
 
 export default routes;
