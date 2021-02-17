@@ -4,20 +4,20 @@ import FakeSubcategoriesRepository from '../../../repositories/fakes/FakeSubcate
 import CreateSubcategoryService from '../services/CreateSubcategoryService';
 import CreateCategoryService from '../../Category/services/CreateCategoryService';
 
-let fakeCateoriesRepository: FakeCategoriesRepository;
+let fakeCategoriesRepository: FakeCategoriesRepository;
 let fakeSubcategoriesRepository: FakeSubcategoriesRepository;
 let createSubcategory: CreateSubcategoryService;
 let createCategory: CreateCategoryService;
 
 describe('CreateCategory', () => {
   beforeEach(() => {
-    fakeCateoriesRepository = new FakeCategoriesRepository();
+    fakeCategoriesRepository = new FakeCategoriesRepository();
     fakeSubcategoriesRepository = new FakeSubcategoriesRepository();
     createSubcategory = new CreateSubcategoryService(
       fakeSubcategoriesRepository,
-      fakeCateoriesRepository,
+      fakeCategoriesRepository,
     );
-    createCategory = new CreateCategoryService(fakeCateoriesRepository);
+    createCategory = new CreateCategoryService(fakeCategoriesRepository);
   });
   it('should be able to create a subcategory', async () => {
     const category = await createCategory.execute({
