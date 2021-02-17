@@ -22,6 +22,7 @@ export default class TransactionsRepository implements ITransactionsRepository {
     payment_date,
     total,
     description,
+    status,
   }: ICreateTransactionDTO): Promise<Transaction> {
     const transaction = this.ormRepository.create({
       user_id,
@@ -35,6 +36,7 @@ export default class TransactionsRepository implements ITransactionsRepository {
       payment_date,
       total,
       description,
+      status,
     });
 
     await this.ormRepository.save(transaction);
