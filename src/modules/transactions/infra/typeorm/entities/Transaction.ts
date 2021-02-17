@@ -44,6 +44,9 @@ class Transaction {
   @Column()
   description: string;
 
+  @Column()
+  status: number;
+
   @CreateDateColumn()
   created_at: Date;
 

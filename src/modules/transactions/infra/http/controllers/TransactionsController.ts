@@ -1,4 +1,3 @@
-import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateTransactionService from '@modules/transactions/services/Transaction/services/CreateTransactionService';
@@ -18,6 +17,7 @@ export default class TransactionsController {
         payment_date,
         total,
         description,
+        status,
       } = request.body;
 
       const createTransaction = container.resolve(CreateTransactionService);
@@ -34,6 +34,7 @@ export default class TransactionsController {
         payment_date,
         total,
         description,
+        status,
       });
 
       return response.json(transaction);

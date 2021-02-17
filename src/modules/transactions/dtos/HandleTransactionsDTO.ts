@@ -10,4 +10,5 @@ export interface ICreateTransactionDTO {
   total: number;
   installment: number;
   installments: number;
+  status: number;
 }
