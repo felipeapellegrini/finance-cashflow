@@ -19,6 +19,7 @@ export default class TransactionsRepository implements ITransactionsRepository {
     payment_date,
     total,
     description,
+    status,
   }: ICreateTransactionDTO): Promise<Transaction> {
     const transaction = new Transaction();
 
@@ -35,6 +36,7 @@ export default class TransactionsRepository implements ITransactionsRepository {
       payment_date,
       total,
       description,
+      status,
     });
 
     this.transactions.push(transaction);
