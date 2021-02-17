@@ -2,12 +2,12 @@ import AppError from '@shared/errors/AppError';
 import FakeCategoriesRepository from '../../../repositories/fakes/FakeCategoriesRepository';
 import FakeSubcategoriesRepository from '../../../repositories/fakes/FakeSubcategoriesRepository';
 import CreateSubcategoryService from '../services/CreateSubcategoryService';
-import CreateCategorryService from '../../Category/services/CreateCategoryService';
+import CreateCategoryService from '../../Category/services/CreateCategoryService';
 
 let fakeCateoriesRepository: FakeCategoriesRepository;
 let fakeSubcategoriesRepository: FakeSubcategoriesRepository;
 let createSubcategory: CreateSubcategoryService;
-let createCategory: CreateCategorryService;
+let createCategory: CreateCategoryService;
 
 describe('CreateCategory', () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('CreateCategory', () => {
       fakeSubcategoriesRepository,
       fakeCateoriesRepository,
     );
-    createCategory = new CreateCategorryService(fakeCateoriesRepository);
+    createCategory = new CreateCategoryService(fakeCateoriesRepository);
   });
   it('should be able to create a subcategory', async () => {
     const category = await createCategory.execute({
