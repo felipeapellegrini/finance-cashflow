@@ -47,6 +47,12 @@ class Transaction {
   @Column()
   status: number;
 
+  @Column()
+  type: string;
+
+  @Column()
+  parent_id: string;
+
   @CreateDateColumn()
   created_at: Date;
 

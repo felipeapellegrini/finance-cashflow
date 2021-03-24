@@ -2,10 +2,21 @@ import { v4 } from 'uuid';
 
 import Transaction from '@modules/transactions/infra/typeorm/entities/Transaction';
 import ITransactionsRepository from '../ITransactionsRepository';
-import { ICreateTransactionDTO } from '../../dtos/HandleTransactionsDTO';
+import {
+  FindAll,
+  ICreateTransactionDTO,
+} from '../../dtos/HandleTransactionsDTO';
 
 export default class TransactionsRepository implements ITransactionsRepository {
   private transactions: Transaction[] = [];
+
+  public async findAll({
+    user_id,
+  }: FindAll): Promise<Transaction[] | undefined> {
+    const transactions = this.transactions.filter(t => t.user_id === user_id);
+
+    return transactions;
+  }
 
   public async create({
     user_id,
@@ -20,6 +31,7 @@ export default class TransactionsRepository implements ITransactionsRepository {
     total,
     description,
     status,
+    type,
   }: ICreateTransactionDTO): Promise<Transaction> {
     const transaction = new Transaction();
 
@@ -37,6 +49,7 @@ export default class TransactionsRepository implements ITransactionsRepository {
       total,
       description,
       status,
+      type,
     });
 
     this.transactions.push(transaction);

@@ -8,5 +8,6 @@ const transactionsController = new TransactionsController();
 transactionsRouter.use(ensureAuthenticated);
 
 transactionsRouter.post('/', transactionsController.create);
+transactionsRouter.get('/', transactionsController.index);
 
 export default transactionsRouter;

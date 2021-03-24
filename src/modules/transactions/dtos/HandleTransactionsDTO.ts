@@ -11,4 +11,10 @@ export interface ICreateTransactionDTO {
   installment: number;
   installments: number;
   status: number;
+  type: string;
+  parent_id?: string;
+}
+
+export interface FindAll {
+  user_id: string;
 }

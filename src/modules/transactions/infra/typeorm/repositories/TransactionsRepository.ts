@@ -1,6 +1,9 @@
 import { Repository, getRepository } from 'typeorm';
 import ITransactionsRepository from '../../../repositories/ITransactionsRepository';
-import { ICreateTransactionDTO } from '../../../dtos/HandleTransactionsDTO';
+import {
+  FindAll,
+  ICreateTransactionDTO,
+} from '../../../dtos/HandleTransactionsDTO';
 import Transaction from '../entities/Transaction';
 
 export default class TransactionsRepository implements ITransactionsRepository {
@@ -8,6 +11,18 @@ export default class TransactionsRepository implements ITransactionsRepository {
 
   constructor() {
     this.ormRepository = getRepository(Transaction);
+  }
+
+  public async findAll({
+    user_id,
+  }: FindAll): Promise<Transaction[] | undefined> {
+    const transactions = await this.ormRepository.find({
+      where: {
+        user_id,
+      },
+    });
+
+    return transactions;
   }
 
   public async create({
@@ -23,6 +38,8 @@ export default class TransactionsRepository implements ITransactionsRepository {
     total,
     description,
     status,
+    type,
+    parent_id,
   }: ICreateTransactionDTO): Promise<Transaction> {
     const transaction = this.ormRepository.create({
       user_id,
@@ -37,6 +54,8 @@ export default class TransactionsRepository implements ITransactionsRepository {
       total,
       description,
       status,
+      type,
+      parent_id,
     });
 
     await this.ormRepository.save(transaction);
